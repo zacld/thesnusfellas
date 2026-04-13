@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Confirmed — The Snus Fellas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --black: #0d0d0d;
+      --white: #f7f5f1;
+      --blue: #5BC4E8;
+    }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'DM Mono', monospace;
+      font-weight: 300;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .icon {
+      font-size: 3rem;
+      margin-bottom: 1.5rem;
+    }
+
+    h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      margin-bottom: 1rem;
+    }
+
+    h1 em {
+      font-style: italic;
+      color: var(--blue);
+    }
+
+    p {
+      font-size: 0.875rem;
+      letter-spacing: 0.04em;
+      color: rgba(247,245,241,0.7);
+      max-width: 480px;
+      line-height: 1.7;
+      margin-bottom: 0.75rem;
+    }
+
+    .divider {
+      width: 40px;
+      height: 1px;
+      background: var(--blue);
+      margin: 2rem auto;
+    }
+
+    a.btn {
+      display: inline-block;
+      margin-top: 2rem;
+      padding: 0.875rem 2.5rem;
+      background: var(--blue);
+      color: var(--black);
+      text-decoration: none;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    a.btn:hover {
+      background: #3aa8cc;
+    }
+
+    .wordmark {
+      position: fixed;
+      top: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(247,245,241,0.4);
+    }
+  </style>
+</head>
+<body>
+  <div class="wordmark">The Snus Fellas</div>
+  <div class="icon">✓</div>
+  <h1>Order <em>Confirmed</em></h1>
+  <div class="divider"></div>
+  <p>Your bundle is on its way. Expect a dispatch confirmation shortly.</p>
+  <p>Questions? Reach us on Instagram @thesnusfellas or TikTok @thesnusfellas.</p>
+  <a href="/" class="btn">Back to the Fellas</a>
+</body>
+</html>

@@ -1,0 +1,2427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Snus Fellas — Find Your Strength</title>
+  <meta name="description" content="Premium UK nicotine pouch bundles. Curated, priced right, shipped fast.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <script async src="https://js.stripe.com/v3/buy-button.js"></script>
+  <style>
+    /* ─── Reset ─── */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    /* ─── Variables ─── */
+    :root {
+      --black:      #0d0d0d;
+      --white:      #f7f5f1;
+      --off-white:  #eeece8;
+      --blue:       #5BC4E8;
+      --blue-dark:  #3aa8cc;
+      --border:     rgba(13,13,13,0.1);
+
+      --trad-accent:    #8B6914;
+      --trad-bg:        #FAF5E8;
+      --swedish-accent: #006AA7;
+      --swedish-bg:     #EEF4FA;
+      --norway-accent:  #BA0C2F;
+      --norway-bg:      #FBF0F2;
+      --fruity-accent:  #C0484A;
+      --fruity-bg:      #FDF0F0;
+      --zyn-accent:     #1A1A2E;
+      --zyn-bg:         #F0F0F5;
+      --velo-accent:    #00857C;
+      --velo-bg:        #EEF8F7;
+      --widow-accent:   #f7f5f1;
+      --widow-bg:       #0c0c0c;
+    }
+
+    /* ─── Base ─── */
+    body {
+      font-family: 'DM Mono', monospace;
+      font-weight: 300;
+      background: var(--black);
+      color: var(--white);
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* ─── Pages ─── */
+    .page { display: none; min-height: 100vh; }
+    .page.active { display: block; }
+
+    /* ─── Nav ─── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 3rem;
+      background: rgba(13,13,13,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(247,245,241,0.06);
+    }
+
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--white);
+      cursor: pointer;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links li a,
+    .nav-links li span {
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(247,245,241,0.55);
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .nav-links li a:hover,
+    .nav-links li span:hover,
+    .nav-links li.active a,
+    .nav-links li.active span {
+      color: var(--white);
+    }
+
+    /* ─── Buttons ─── */
+    .btn-primary {
+      display: inline-block;
+      padding: 0.875rem 2.5rem;
+      background: var(--blue);
+      color: var(--black);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 400;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      cursor: pointer;
+      border: none;
+      transition: background 0.2s;
+    }
+
+    .btn-primary:hover { background: var(--blue-dark); }
+
+    .btn-outline {
+      display: inline-block;
+      padding: 0.875rem 2.5rem;
+      background: transparent;
+      color: var(--white);
+      border: 1px solid rgba(247,245,241,0.3);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 300;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .btn-outline:hover {
+      border-color: var(--white);
+      color: var(--white);
+    }
+
+    .btn-dark {
+      display: inline-block;
+      padding: 0.875rem 2.5rem;
+      background: var(--black);
+      color: var(--white);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 400;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      cursor: pointer;
+      border: none;
+      transition: background 0.2s;
+    }
+
+    .btn-dark:hover { background: #1a1a1a; }
+
+    /* ─── Section Utility ─── */
+    .section-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 1rem;
+    }
+
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      line-height: 1.1;
+    }
+
+    .section-title em {
+      font-style: italic;
+    }
+
+    .divider {
+      width: 40px;
+      height: 1px;
+      background: var(--blue);
+      margin: 1.5rem 0;
+    }
+
+    .divider.center { margin: 1.5rem auto; }
+
+    /* ════════════════════════════════════════
+       HOME PAGE
+    ════════════════════════════════════════ */
+    #home { background: var(--black); }
+
+    /* Hero */
+    .home-hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 8rem 2rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .home-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 70% 60% at 50% 40%, rgba(91,196,232,0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 2rem;
+    }
+
+    .hero-wordmark {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(3.5rem, 10vw, 7rem);
+      letter-spacing: 0.06em;
+      line-height: 1;
+      color: var(--white);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-tagline {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-style: italic;
+      font-size: clamp(1.2rem, 3vw, 1.8rem);
+      color: rgba(247,245,241,0.55);
+      margin-bottom: 3rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(247,245,241,0.3);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .hero-scroll::after {
+      content: '';
+      width: 1px;
+      height: 40px;
+      background: rgba(247,245,241,0.2);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.2; }
+      50% { opacity: 0.7; }
+    }
+
+    /* Story */
+    .story-section {
+      background: var(--white);
+      padding: 7rem 2rem;
+    }
+
+    .story-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    .story-section .section-label { color: var(--blue-dark); }
+
+    .story-section .section-title,
+    .story-section h2 {
+      color: var(--black) !important;
+    }
+
+    .story-section p {
+      color: #333 !important;
+      font-size: 0.85rem;
+      line-height: 1.8;
+      margin-top: 1.5rem;
+    }
+
+    .story-stats {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      padding-top: 2rem;
+    }
+
+    .stat-item {
+      border-left: 2px solid var(--blue);
+      padding-left: 1.5rem;
+    }
+
+    .stat-number {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.8rem;
+      font-weight: 300;
+      color: var(--black) !important;
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #555 !important;
+      margin-top: 0.3rem;
+    }
+
+    /* Pillars */
+    .pillars-section {
+      background: var(--black);
+      padding: 7rem 2rem;
+    }
+
+    .pillars-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .pillars-grid {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+
+    .pillar-card {
+      background: #111;
+      padding: 2.5rem 2rem;
+      border: 1px solid rgba(247,245,241,0.06);
+    }
+
+    .pillar-icon {
+      font-size: 1.5rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .pillar-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 300;
+      margin-bottom: 0.75rem;
+    }
+
+    .pillar-title em { color: var(--blue); font-style: italic; }
+
+    .pillar-body {
+      font-size: 0.78rem;
+      line-height: 1.7;
+      color: rgba(247,245,241,0.55);
+    }
+
+    /* Goodfella CTA */
+    .goodfella-cta {
+      background: var(--blue);
+      padding: 5rem 2rem;
+      text-align: center;
+    }
+
+    .goodfella-cta .section-title {
+      color: var(--black);
+      margin-bottom: 1rem;
+    }
+
+    .goodfella-cta p {
+      font-size: 0.85rem;
+      color: rgba(13,13,13,0.7);
+      max-width: 500px;
+      margin: 0 auto 2rem;
+      line-height: 1.7;
+    }
+
+    /* Monthly Drop */
+    .monthly-section {
+      background: #0a0a0a;
+      padding: 7rem 2rem;
+      border-top: 1px solid rgba(247,245,241,0.06);
+    }
+
+    .monthly-inner {
+      max-width: 800px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .monthly-price {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 4rem;
+      font-weight: 300;
+      line-height: 1;
+      margin: 1.5rem 0;
+    }
+
+    .monthly-price span {
+      font-size: 1.2rem;
+      color: rgba(247,245,241,0.4);
+    }
+
+    .monthly-perks {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .monthly-perks li {
+      font-size: 0.78rem;
+      color: rgba(247,245,241,0.6);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .monthly-perks li::before {
+      content: '';
+      width: 4px;
+      height: 4px;
+      background: var(--blue);
+      flex-shrink: 0;
+    }
+
+    /* Home CTA Strip */
+    .home-cta-strip {
+      background: var(--black);
+      padding: 6rem 2rem;
+      text-align: center;
+      border-top: 1px solid rgba(247,245,241,0.06);
+    }
+
+    /* ════════════════════════════════════════
+       BUNDLES PAGE
+    ════════════════════════════════════════ */
+    #bundles { background: var(--off-white); }
+
+    .bundles-hero {
+      background: var(--black);
+      padding: 8rem 2rem 5rem;
+      text-align: center;
+    }
+
+    .bundles-hero .section-title { color: var(--white); }
+    .bundles-hero p {
+      color: rgba(247,245,241,0.55);
+      font-size: 0.85rem;
+      max-width: 480px;
+      margin: 1rem auto 0;
+      line-height: 1.7;
+    }
+
+    .bundles-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+
+    /* Bundle Card */
+    .bundle-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .bundle-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.1);
+    }
+
+    .bundle-card.dark {
+      background: var(--widow-bg);
+      border-color: rgba(247,245,241,0.08);
+      color: var(--white);
+    }
+
+    .bundle-tag {
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      display: inline-block;
+      padding: 0.3rem 0.75rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .bundle-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem;
+      font-weight: 300;
+      line-height: 1.2;
+      color: var(--black);
+    }
+
+    .bundle-card.dark .bundle-name { color: var(--white); }
+
+    .bundle-desc {
+      font-size: 0.78rem;
+      line-height: 1.7;
+      color: #444;
+    }
+
+    .bundle-card.dark .bundle-desc { color: rgba(247,245,241,0.6); }
+
+    .bundle-contents {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .bundle-contents li {
+      font-size: 0.72rem;
+      color: #555;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .bundle-card.dark .bundle-contents li { color: rgba(247,245,241,0.5); }
+
+    .bundle-contents li::before {
+      content: '';
+      width: 3px;
+      height: 3px;
+      background: currentColor;
+      flex-shrink: 0;
+    }
+
+    .bundle-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: auto;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .bundle-card.dark .bundle-footer { border-top-color: rgba(247,245,241,0.1); }
+
+    .bundle-price {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 300;
+      color: var(--black);
+    }
+
+    .bundle-card.dark .bundle-price { color: var(--white); }
+
+    /* Stripe Buy Button wrapper */
+    .stripe-btn-wrap {
+      display: flex;
+      align-items: center;
+    }
+
+    stripe-buy-button {
+      --stripe-buy-button-background-color: #5BC4E8;
+      --stripe-buy-button-text-color: #0d0d0d;
+      --stripe-buy-button-border-radius: 0px;
+      --stripe-buy-button-font-family: 'DM Mono', monospace;
+    }
+
+    /* Multi-buy strip */
+    .multibuy-strip {
+      background: var(--black);
+      padding: 3.5rem 2rem;
+      text-align: center;
+    }
+
+    .multibuy-strip .section-label { color: var(--blue); }
+
+    .multibuy-options {
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .multibuy-opt {
+      text-align: center;
+    }
+
+    .multibuy-qty {
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(247,245,241,0.4);
+      margin-bottom: 0.4rem;
+    }
+
+    .multibuy-price {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem;
+      font-weight: 300;
+      color: var(--white);
+    }
+
+    .multibuy-price.highlight { color: var(--blue); }
+
+    .multibuy-save {
+      font-size: 0.62rem;
+      color: rgba(247,245,241,0.35);
+      margin-top: 0.2rem;
+    }
+
+    /* Subscription section */
+    .sub-section {
+      background: var(--off-white);
+      padding: 5rem 2rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .sub-inner {
+      max-width: 700px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .sub-section .section-title { color: var(--black); }
+    .sub-section p {
+      color: #444;
+      font-size: 0.85rem;
+      line-height: 1.7;
+      margin: 1rem 0 2rem;
+    }
+
+    .bundle-notes {
+      background: var(--white);
+      padding: 3rem 2rem;
+      text-align: center;
+      border-top: 1px solid var(--border);
+    }
+
+    .bundle-notes p {
+      font-size: 0.72rem;
+      color: #888;
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.8;
+    }
+
+    /* ════════════════════════════════════════
+       REWARDS PAGE
+    ════════════════════════════════════════ */
+    #rewards { background: var(--black); }
+
+    .rewards-hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 8rem 2rem 4rem;
+      text-align: center;
+      position: relative;
+    }
+
+    .rewards-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 50% at 50% 50%, rgba(91,196,232,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* Spin wheel */
+    .wheel-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .wheel-wrap {
+      position: relative;
+      width: 320px;
+      height: 320px;
+    }
+
+    #rewardsWheel {
+      border-radius: 50%;
+      border: 3px solid rgba(91,196,232,0.3);
+    }
+
+    .wheel-center {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 40px;
+      height: 40px;
+      background: var(--black);
+      border: 2px solid var(--blue);
+      border-radius: 50%;
+      z-index: 2;
+    }
+
+    .wheel-pointer {
+      position: absolute;
+      top: -18px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      border-top: 22px solid var(--blue);
+      z-index: 3;
+    }
+
+    .spin-result {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem;
+      font-weight: 300;
+      color: var(--blue);
+      min-height: 2.5rem;
+    }
+
+    /* Points dashboard */
+    .points-dashboard {
+      background: #0a0a0a;
+      padding: 5rem 2rem;
+    }
+
+    .points-inner {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .points-card {
+      background: #111;
+      border: 1px solid rgba(247,245,241,0.07);
+      padding: 2.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .points-balance {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 5rem;
+      font-weight: 300;
+      line-height: 1;
+      color: var(--blue);
+    }
+
+    .points-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(247,245,241,0.35);
+      margin-top: 0.5rem;
+    }
+
+    .tier-progress {
+      margin-top: 2rem;
+    }
+
+    .tier-bar-bg {
+      background: rgba(247,245,241,0.08);
+      height: 3px;
+      margin-top: 0.75rem;
+    }
+
+    .tier-bar-fill {
+      height: 100%;
+      background: var(--blue);
+      width: 23%;
+      transition: width 1s ease;
+    }
+
+    .tier-info {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 0.5rem;
+      font-size: 0.65rem;
+      color: rgba(247,245,241,0.35);
+    }
+
+    /* ════════════════════════════════════════
+       LOYALTY PAGE
+    ════════════════════════════════════════ */
+    #loyalty { background: var(--off-white); }
+
+    .loyalty-hero {
+      background: var(--off-white);
+      padding: 8rem 2rem 4rem;
+      text-align: center;
+    }
+
+    .loyalty-hero .section-title { color: var(--black); }
+    .loyalty-hero p {
+      color: #555;
+      font-size: 0.85rem;
+      max-width: 500px;
+      margin: 1rem auto 0;
+      line-height: 1.7;
+    }
+
+    /* Earn section */
+    .earn-section {
+      background: var(--white);
+      padding: 5rem 2rem;
+    }
+
+    .earn-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .earn-section .section-label { color: var(--blue-dark); }
+    .earn-section .section-title { color: var(--black); }
+
+    .earn-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+    }
+
+    .earn-card {
+      background: var(--off-white);
+      padding: 1.75rem;
+      border: 1px solid var(--border);
+    }
+
+    .earn-pts {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 300;
+      color: var(--blue-dark);
+    }
+
+    .earn-action {
+      font-size: 0.75rem;
+      color: var(--black);
+      margin-top: 0.4rem;
+    }
+
+    .earn-note {
+      font-size: 0.65rem;
+      color: #888;
+      margin-top: 0.25rem;
+    }
+
+    /* Progress tracker */
+    .progress-section {
+      background: var(--off-white);
+      padding: 5rem 2rem;
+    }
+
+    .progress-inner {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .progress-section .section-label { color: var(--blue-dark); }
+    .progress-section .section-title { color: var(--black); }
+
+    .tier-steps {
+      display: flex;
+      align-items: flex-start;
+      gap: 0;
+      margin-top: 3rem;
+      position: relative;
+    }
+
+    .tier-steps::before {
+      content: '';
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      right: 20px;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .tier-step {
+      flex: 1;
+      text-align: center;
+      position: relative;
+    }
+
+    .tier-dot {
+      width: 40px;
+      height: 40px;
+      background: var(--white);
+      border: 2px solid var(--border);
+      border-radius: 50%;
+      margin: 0 auto 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .tier-step.active .tier-dot {
+      background: var(--blue);
+      border-color: var(--blue);
+    }
+
+    .tier-step-name {
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      color: var(--black);
+      margin-bottom: 0.25rem;
+    }
+
+    .tier-step-pts {
+      font-size: 0.62rem;
+      color: #888;
+    }
+
+    /* Redemption store */
+    .store-section {
+      background: var(--white);
+      padding: 5rem 2rem;
+    }
+
+    .store-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .store-section .section-label { color: var(--blue-dark); }
+    .store-section .section-title { color: var(--black); }
+
+    .store-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-top: 2.5rem;
+    }
+
+    .store-item {
+      background: var(--off-white);
+      border: 1px solid var(--border);
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    .store-item-pts {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem;
+      color: var(--blue-dark);
+    }
+
+    .store-item-pts span {
+      font-size: 0.65rem;
+      font-family: 'DM Mono', monospace;
+      color: #888;
+      display: block;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .store-item-name {
+      font-size: 0.78rem;
+      color: var(--black);
+      margin-top: 0.5rem;
+    }
+
+    .store-item-btn {
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
+      background: var(--black);
+      color: var(--white);
+      font-size: 0.62rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      cursor: pointer;
+      border: none;
+      font-family: 'DM Mono', monospace;
+    }
+
+    /* ════════════════════════════════════════
+       MEMBERSHIP PAGE
+    ════════════════════════════════════════ */
+    #membership { background: var(--black); }
+
+    .membership-hero {
+      padding: 8rem 2rem 5rem;
+      text-align: center;
+      background: var(--black);
+    }
+
+    .membership-hero p {
+      color: rgba(247,245,241,0.5);
+      font-size: 0.85rem;
+      max-width: 480px;
+      margin: 1rem auto 0;
+      line-height: 1.7;
+    }
+
+    /* Tier cards */
+    .tiers-section {
+      background: var(--black);
+      padding: 2rem 2rem 6rem;
+    }
+
+    .tiers-grid {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .tier-card {
+      background: #111;
+      border: 1px solid rgba(247,245,241,0.07);
+      padding: 2.5rem 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      transition: border-color 0.2s;
+    }
+
+    .tier-card.featured {
+      border-color: var(--blue);
+      background: #0f1a1e;
+    }
+
+    .tier-emoji { font-size: 2rem; }
+
+    .tier-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem;
+      font-weight: 300;
+    }
+
+    .tier-name em { color: var(--blue); font-style: italic; }
+
+    .tier-unlock {
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(247,245,241,0.35);
+    }
+
+    .tier-perks {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .tier-perks li {
+      font-size: 0.78rem;
+      color: rgba(247,245,241,0.6);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+    }
+
+    .tier-perks li::before {
+      content: '—';
+      color: var(--blue);
+      flex-shrink: 0;
+    }
+
+    .tier-pts-rate {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem;
+      font-weight: 300;
+      color: var(--blue);
+      margin-top: auto;
+    }
+
+    .tier-pts-rate span {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      color: rgba(247,245,241,0.35);
+      display: block;
+    }
+
+    /* Comparison table */
+    .compare-section {
+      background: #0a0a0a;
+      padding: 5rem 2rem;
+    }
+
+    .compare-inner {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .compare-section .section-label { color: var(--blue); }
+    .compare-section .section-title { color: var(--white); }
+
+    .compare-table {
+      width: 100%;
+      margin-top: 2.5rem;
+      border-collapse: collapse;
+    }
+
+    .compare-table th,
+    .compare-table td {
+      padding: 1rem 1.5rem;
+      text-align: center;
+      font-size: 0.78rem;
+      border-bottom: 1px solid rgba(247,245,241,0.06);
+      color: rgba(247,245,241,0.7);
+    }
+
+    .compare-table th {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-weight: 300;
+      color: var(--white);
+      padding-bottom: 1.5rem;
+    }
+
+    .compare-table th:first-child,
+    .compare-table td:first-child {
+      text-align: left;
+      color: rgba(247,245,241,0.5);
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+    }
+
+    .compare-table td.yes { color: var(--blue); }
+    .compare-table td.no { color: rgba(247,245,241,0.2); }
+
+    /* Don Wall */
+    .don-wall {
+      background: var(--black);
+      padding: 5rem 2rem;
+      text-align: center;
+      border-top: 1px solid rgba(247,245,241,0.06);
+    }
+
+    .don-wall .section-label { color: var(--blue); }
+    .don-wall .section-title { color: var(--white); }
+
+    .don-wall p {
+      font-size: 0.8rem;
+      color: rgba(247,245,241,0.4);
+      max-width: 500px;
+      margin: 1rem auto 2.5rem;
+      line-height: 1.7;
+    }
+
+    .don-spots {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .don-spot {
+      width: 80px;
+      height: 80px;
+      background: #111;
+      border: 1px solid rgba(247,245,241,0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(247,245,241,0.15);
+    }
+
+    .don-spot.filled {
+      border-color: var(--blue);
+      color: rgba(247,245,241,0.7);
+      font-size: 0.72rem;
+    }
+
+    /* ════════════════════════════════════════
+       FOOTER
+    ════════════════════════════════════════ */
+    footer {
+      background: var(--off-white);
+      padding: 4rem 2rem 2rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 3rem;
+    }
+
+    .footer-brand {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 300;
+      color: var(--black);
+      margin-bottom: 0.75rem;
+    }
+
+    .footer-tagline {
+      font-size: 0.72rem;
+      color: #777;
+      line-height: 1.6;
+      max-width: 280px;
+    }
+
+    .footer-col h4 {
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #888;
+      margin-bottom: 1rem;
+    }
+
+    .footer-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .footer-col ul li {
+      font-size: 0.75rem;
+      color: #444;
+      cursor: pointer;
+    }
+
+    .footer-col ul li:hover { color: var(--black); }
+
+    .footer-bottom {
+      max-width: 1100px;
+      margin: 3rem auto 0;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-bottom p {
+      font-size: 0.65rem;
+      color: #aaa;
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .footer-social a {
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      color: #888;
+      text-transform: uppercase;
+    }
+
+    .footer-social a:hover { color: var(--black); }
+
+    /* ════════════════════════════════════════
+       FLOATING SPIN BUTTON
+    ════════════════════════════════════════ */
+    .spin-fab {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 58px;
+      height: 58px;
+      background: var(--blue);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 200;
+      animation: fabPulse 2.5s ease-in-out infinite;
+      border: none;
+      color: var(--black);
+      font-size: 1.4rem;
+    }
+
+    @keyframes fabPulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(91,196,232,0.4); }
+      50% { box-shadow: 0 0 0 12px rgba(91,196,232,0); }
+    }
+
+    /* ════════════════════════════════════════
+       SPIN MODAL
+    ════════════════════════════════════════ */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      z-index: 300;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(4px);
+    }
+
+    .modal-overlay.open {
+      display: flex;
+    }
+
+    .modal-box {
+      background: #111;
+      border: 1px solid rgba(247,245,241,0.1);
+      padding: 3rem 2.5rem;
+      text-align: center;
+      max-width: 440px;
+      width: 90%;
+    }
+
+    .modal-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 300;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+    }
+
+    .modal-sub {
+      font-size: 0.72rem;
+      color: rgba(247,245,241,0.4);
+      margin-bottom: 2rem;
+    }
+
+    .modal-wheel-wrap {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 1.5rem;
+    }
+
+    .modal-pointer {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 8px solid transparent;
+      border-right: 8px solid transparent;
+      border-top: 18px solid var(--blue);
+      z-index: 3;
+    }
+
+    .modal-center {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 30px;
+      height: 30px;
+      background: #111;
+      border: 2px solid var(--blue);
+      border-radius: 50%;
+      z-index: 2;
+    }
+
+    .modal-result {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 300;
+      color: var(--blue);
+      min-height: 2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .modal-close {
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(247,245,241,0.3);
+      cursor: pointer;
+      background: none;
+      border: none;
+      font-family: 'DM Mono', monospace;
+      margin-top: 0.5rem;
+    }
+
+    .modal-close:hover { color: var(--white); }
+
+    /* ════════════════════════════════════════
+       RESPONSIVE
+    ════════════════════════════════════════ */
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { gap: 1.5rem; }
+
+      .story-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+      .pillars-grid { grid-template-columns: 1fr; }
+      .monthly-inner { grid-template-columns: 1fr; gap: 2rem; }
+      .tiers-grid { grid-template-columns: 1fr; }
+      .footer-inner { grid-template-columns: 1fr; gap: 2rem; }
+      .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+    }
+
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+      .multibuy-options { gap: 1.5rem; }
+      .tier-steps { flex-direction: column; gap: 1.5rem; }
+      .tier-steps::before { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── NAV ─── -->
+<nav>
+  <div class="nav-logo" onclick="showPage('home')">The Snus Fellas</div>
+  <ul class="nav-links" id="navLinks">
+    <li id="nav-home" class="active"><span onclick="showPage('home')">Home</span></li>
+    <li id="nav-bundles"><span onclick="showPage('bundles')">Bundles</span></li>
+    <li id="nav-rewards"><span onclick="showPage('rewards')">Rewards</span></li>
+    <li id="nav-loyalty"><span onclick="showPage('loyalty')">Loyalty</span></li>
+    <li id="nav-membership"><span onclick="showPage('membership')">Membership</span></li>
+  </ul>
+</nav>
+
+<!-- ════════════════════════════════════════
+     HOME PAGE
+════════════════════════════════════════ -->
+<div id="home" class="page active">
+
+  <!-- Hero -->
+  <section class="home-hero">
+    <p class="hero-eyebrow">Premium UK Nicotine Pouches</p>
+    <h1 class="hero-wordmark">The Snus Fellas</h1>
+    <p class="hero-tagline">Find Your Strength</p>
+    <div class="hero-actions">
+      <button class="btn-primary" onclick="showPage('bundles')">Shop Bundles</button>
+      <button class="btn-outline" onclick="showPage('membership')">Join the Fellas</button>
+    </div>
+    <div class="hero-scroll">Scroll</div>
+  </section>
+
+  <!-- Story -->
+  <section class="story-section">
+    <div class="story-inner">
+      <div>
+        <p class="section-label">The Story</p>
+        <h2 class="section-title">Tired of paying<br><em>corner shop prices</em></h2>
+        <div class="divider"></div>
+        <p>We got fed up paying £7.50 a can. So we did something about it. The Snus Fellas curates the best pouches from Scandinavia and beyond — bundled properly, priced right, shipped fast to your door.</p>
+        <p>No middlemen. No markup. Just good product, honest pricing, and a rewards programme that actually pays out.</p>
+      </div>
+      <div class="story-stats">
+        <div class="stat-item">
+          <div class="stat-number">7</div>
+          <div class="stat-label">Curated bundles</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">£7.50</div>
+          <div class="stat-label">What corner shops charge per can</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">18+</div>
+          <div class="stat-label">Age verified, UK only</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pillars -->
+  <section class="pillars-section">
+    <div class="pillars-header">
+      <p class="section-label">Why the Fellas</p>
+      <h2 class="section-title">Built <em>different</em></h2>
+    </div>
+    <div class="pillars-grid">
+      <div class="pillar-card">
+        <div class="pillar-icon">◈</div>
+        <h3 class="pillar-title"><em>Curated</em> selections</h3>
+        <p class="pillar-body">Every bundle is put together with purpose. Not random, not filler — just the right combination of flavours and strengths to show you what good pouch culture actually looks like.</p>
+      </div>
+      <div class="pillar-card">
+        <div class="pillar-icon">◇</div>
+        <h3 class="pillar-title">Honest <em>pricing</em></h3>
+        <p class="pillar-body">Corner shops charge £7.50 a can. We don't. Our bundles are priced to give you more product for less money — and the multi-buy savings make it even easier to stock up.</p>
+      </div>
+      <div class="pillar-card">
+        <div class="pillar-icon">◆</div>
+        <h3 class="pillar-title">Rewards that <em>pay out</em></h3>
+        <p class="pillar-body">Earn points on every order. Spin the wheel. Get discount codes, free cans, and priority access to new drops. The Goodfella Rewards programme rewards loyalty properly.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Goodfella Rewards CTA -->
+  <section class="goodfella-cta">
+    <p class="section-label" style="color:rgba(13,13,13,0.5)">Goodfella Rewards</p>
+    <h2 class="section-title">Join. <em>Earn</em>. Win.</h2>
+    <p>Sign up for free. Earn points on every order. Spin the wheel on login. The more you buy, the more you get back.</p>
+    <button class="btn-dark" onclick="showPage('rewards')">Start Earning</button>
+  </section>
+
+  <!-- Monthly Drop -->
+  <section class="monthly-section">
+    <div class="monthly-inner">
+      <div>
+        <p class="section-label">Monthly Drop</p>
+        <h2 class="section-title">A new bundle.<br><em>Every month.</em></h2>
+        <div class="divider"></div>
+        <div class="monthly-price">£19.99<span>/mo</span></div>
+        <button class="btn-primary" onclick="showPage('bundles')">Subscribe Now</button>
+      </div>
+      <div>
+        <ul class="monthly-perks">
+          <li>One curated bundle every month</li>
+          <li>Exclusive event access</li>
+          <li>Insider drops before anyone else</li>
+          <li>Double loyalty points on every drop</li>
+          <li>Cancel any time. No questions.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Strip -->
+  <section class="home-cta-strip">
+    <p class="section-label">Ready?</p>
+    <h2 class="section-title" style="color:var(--white);margin-bottom:2rem">Pick your <em>bundle</em></h2>
+    <button class="btn-primary" onclick="showPage('bundles')">Shop All Bundles</button>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand">The Snus Fellas</div>
+        <p class="footer-tagline">Premium UK nicotine pouches. Curated, priced right, shipped fast. For adults 18+ only.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigate</h4>
+        <ul>
+          <li onclick="showPage('home')">Home</li>
+          <li onclick="showPage('bundles')">Bundles</li>
+          <li onclick="showPage('rewards')">Rewards</li>
+          <li onclick="showPage('loyalty')">Loyalty</li>
+          <li onclick="showPage('membership')">Membership</li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Social</h4>
+        <ul>
+          <li>@thesnusfellas</li>
+          <li>Instagram</li>
+          <li>TikTok</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 The Snus Fellas. All rights reserved. Adults 18+ only. UK only.</p>
+      <div class="footer-social">
+        <a href="#">Instagram</a>
+        <a href="#">TikTok</a>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<!-- ════════════════════════════════════════
+     BUNDLES PAGE
+════════════════════════════════════════ -->
+<div id="bundles" class="page">
+
+  <section class="bundles-hero">
+    <p class="section-label">The Range</p>
+    <h1 class="section-title">Shop <em>Bundles</em></h1>
+    <p>Seven bundles. Every style. Priced properly. Buy more, save more.</p>
+  </section>
+
+  <div class="bundles-grid">
+
+    <!-- The Traditional One -->
+    <div class="bundle-card" style="background:var(--trad-bg);border-left:3px solid var(--trad-accent)">
+      <div>
+        <span class="bundle-tag" style="background:var(--trad-accent);color:#fff;">Classic</span>
+      </div>
+      <h2 class="bundle-name" style="color:var(--black)">The Traditional One</h2>
+      <p class="bundle-desc" style="color:#555">The classics. If you know, you know — and if you don't, this is where you start.</p>
+      <ul class="bundle-contents">
+        <li style="color:#555">Ettan Original Portion</li>
+        <li style="color:#555">Göteborgs Rapé Vit Portion</li>
+        <li style="color:#555">General Classic Portion</li>
+      </ul>
+      <div class="bundle-footer" style="border-top-color:rgba(139,105,20,0.2)">
+        <div class="bundle-price" style="color:var(--black)">£11.99</div>
+        <div class="stripe-btn-wrap">
+          <stripe-buy-button
+            buy-button-id="buy_btn_1TLpNBDDHsuciWtWyG2rUOeb"
+            publishable-key="pk_live_51TLp62DDHsuciWtWRIfF8QDn1o4G9L6WSXFLHFXuHhIzFqwOwnLKu52kkBLQDb2ai5x5upriuLKCMC9AGjUVMpde007w5xayL1">
+          </stripe-buy-button>
+        </div>
+      </div>
+    </div>
+
+    <!-- The Swedish One -->
+    <div class="bundle-card" style="background:var(--swedish-bg);border-left:3px solid var(--swedish-accent)">
+      <div>
+        <span class="bundle-tag" style="background:var(--swedish-accent);color:#fff;">Swedish</span>
+      </div>
+      <h2 class="bundle-name" style="color:var(--black)">The Swedish One</h2>
+      <p class="bundle-desc" style="color:#555">Straight from Sweden. Clean, considered, and worth every penny.</p>
+      <ul class="bundle-contents">
+        <li style="color:#555">Lundgrens Månskära</li>
+        <li style="color:#555">Skruf Super White</li>
+        <li style="color:#555">+ 1 TBC</li>
+      </ul>
+      <div class="bundle-footer" style="border-top-color:rgba(0,106,167,0.2)">
+        <div class="bundle-price" style="color:var(--black)">£11.99</div>
+        <div class="stripe-btn-wrap">
+          <stripe-buy-button
+            buy-button-id="buy_btn_1TLpNBDDHsuciWtWyG2rUOeb"
+            publishable-key="pk_live_51TLp62DDHsuciWtWRIfF8QDn1o4G9L6WSXFLHFXuHhIzFqwOwnLKu52kkBLQDb2ai5x5upriuLKCMC9AGjUVMpde007w5xayL1">
+          </stripe-buy-button>
+        </div>
+      </div>
+    </div>
+
+    <!-- The Norway One -->
+    <div class="bundle-card" style="background:var(--norway-bg);border-left:3px solid var(--norway-accent)">
+      <div>
+        <span class="bundle-tag" style="background:var(--norway-accent);color:#fff;">Norway</span>
+      </div>
+      <h2 class="bundle-name" style="color:var(--black)">The Norway One</h2>
+      <p class="bundle-desc" style="color:#555">Norwegian heritage. Different character. Worth exploring if you know your Scandinavian pouches.</p>
+      <ul class="bundle-contents">
+        <li style="color:#555">General Classic Portion</li>
+        <li style="color:#555">Nordic Spirit</li>
+        <li style="color:#555">NOR</li>
+      </ul>
+      <div class="bundle-footer" style="border-top-color:rgba(186,12,47,0.2)">
+        <div class="bundle-price" style="color:var(--black)">£11.99</div>
+        <div class="stripe-btn-wrap">
+          <stripe-buy-button
+            buy-button-id="buy_btn_1TLpNBDDHsuciWtWyG2rUOeb"
+            publishable-key="pk_live_51TLp62DDHsuciWtWRIfF8QDn1o4G9L6WSXFLHFXuHhIzFqwOwnLKu52kkBLQDb2ai5x5upriuLKCMC9AGjUVMpde007w5xayL1">
+          </stripe-buy-button>
+        </div>
+      </div>
+    </div>
+
+    <!-- The Fruity One -->
+    <div class="bundle-card" style="background:var(--fruity-bg);border-left:3px solid var(--fruity-accent)">
+      <div>
+        <span class="bundle-tag" style="background:var(--fruity-accent);color:#fff;">Fruity</span>
+      </div>
+      <h2 class="bundle-name" style="color:var(--black)">The Fruity One</h2>
+      <p class="bundle-desc" style="color:#555">Five flavours. Zero apologies. If you like fruit, this bundle doesn't hold back.</p>
+      <ul class="bundle-contents">
+        <li style="color:#555">Berry</li>
+        <li style="color:#555">Watermelon</li>
+        <li style="color:#555">Mango</li>
+        <li style="color:#555">Peach</li>
+        <li style="color:#555">+ Sweeter picks (TBC)</li>
+      </ul>
+      <div class="bundle-footer" style="border-top-color:rgba(192,72,74,0.2)">
+        <div class="bundle-price" style="color:var(--black)">£19.99</div>
+        <div class="stripe-btn-wrap">
+          <stripe-buy-button
+            buy-button-id="buy_btn_1TLpOMDDHsuciWtWzA58EFrc"
+            publishable-key="pk_live_51TLp62DDHsuciWtWRIfF8QDn1o4G9L6WSXFLHFXuHhIzFqwOwnLKu52kkBLQDb2ai5x5upriuLKCMC9AGjUVMpde007w5xayL1">
+          </stripe-buy-button>
+        </div>
+      </div>
+    </div>
+
+    <!-- The ZYN One -->
+    <div class="bundle-card" style="background:var(--zyn-bg);border-left:3px solid var(--zyn-accent)">
+      <div>
+        <span class="bundle-tag" style="background:var(--zyn-accent);color:#fff;">ZYN</span>
+      </div>
+      <h2 class="bundle-name" style="color:var(--black)">The ZYN One</h2>
+      <p class="bundle-desc" style="color:#555">Everything ZYN in one box. Five variants. The full picture.</p>
+      <ul class="bundle-contents">
+        <li style="color:#555">ZYN Mint</li>
+        <li style="color:#555">ZYN Fruit</li>
+        <li style="color:#555">ZYN Strong</li>
+        <li style="color:#555">ZYN Light</li>
+        <li style="color:#555">ZYN Mini</li>
+      </ul>
+      <div class="bundle-footer" style="border-top-color:rgba(26,26,46,0.2)">
+        <div class="bundle-price" style="color:var(--black)">£19.99</div>
+        <div class="stripe-btn-wrap">
+          <stripe-buy-button
+            buy-button-id="buy_btn_1TLpOMDDHsuciWtWzA58EFrc"
+            publishable-key="pk_live_51TLp62DDHsuciWtWRIfF8QDn1o4G9L6WSXFLHFXuHhIzFqwOwnLKu52kkBLQDb2ai5x5upriuLKCMC9AGjUVMpde007w5xayL1">
+          </stripe-buy-button>
+        </div>
+      </div>
+    </div>
+
+    <!-- The VELO One -->
+    <div class="bundle-card" style="background:var(--velo-bg);border-left:3px solid var(--velo-accent)">
+      <div>
+        <span class="bundle-tag" style="background:var(--velo-accent);color:#fff;">VELO</span>
+      </div>
+      <h2 class="bundle-name" style="color:var(--black)">The VELO One</h2>
+      <p class="bundle-desc" style="color:#555">VELO's range is underrated. Five variants, including their best flavours. Try them all at once.</p>
+      <ul class="bundle-contents">
+        <li style="color:#555">VELO Mint</li>
+        <li style="color:#555">VELO Mango Ice</li>
+        <li style="color:#555">VELO Berry</li>
+        <li style="color:#555">VELO Strong</li>
+        <li style="color:#555">VELO Light</li>
+      </ul>
+      <div class="bundle-footer" style="border-top-color:rgba(0,133,124,0.2)">
+        <div class="bundle-price" style="color:var(--black)">£19.99</div>
+        <div class="stripe-btn-wrap">
+          <stripe-buy-button
+            buy-button-id="buy_btn_1TLpOMDDHsuciWtWzA58EFrc"
+            publishable-key="pk_live_51TLp62DDHsuciWtWRIfF8QDn1o4G9L6WSXFLHFXuHhIzFqwOwnLKu52kkBLQDb2ai5x5upriuLKCMC9AGjUVMpde007w5xayL1">
+          </stripe-buy-button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Widowmaker -->
+    <div class="bundle-card dark" style="border-left:3px solid rgba(247,245,241,0.2)">
+      <div>
+        <span class="bundle-tag" style="background:rgba(247,245,241,0.1);color:rgba(247,245,241,0.6);">Extreme</span>
+      </div>
+      <h2 class="bundle-name" style="color:var(--white)">Widowmaker</h2>
+      <p class="bundle-desc" style="color:rgba(247,245,241,0.55)">This is not a starter bundle. These three hit hard, fast, and unapologetically.</p>
+      <ul class="bundle-contents">
+        <li style="color:rgba(247,245,241,0.5)">FEDRS Ice Cool Energy Hard</li>
+        <li style="color:rgba(247,245,241,0.5)">Siberia White Dry</li>
+        <li style="color:rgba(247,245,241,0.5)">Corvus Extreme Menthol</li>
+      </ul>
+      <div class="bundle-footer" style="border-top-color:rgba(247,245,241,0.1)">
+        <div class="bundle-price" style="color:var(--white)">£11.99</div>
+        <div class="stripe-btn-wrap">
+          <stripe-buy-button
+            buy-button-id="buy_btn_1TLpNBDDHsuciWtWyG2rUOeb"
+            publishable-key="pk_live_51TLp62DDHsuciWtWRIfF8QDn1o4G9L6WSXFLHFXuHhIzFqwOwnLKu52kkBLQDb2ai5x5upriuLKCMC9AGjUVMpde007w5xayL1">
+          </stripe-buy-button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Multi-buy strip -->
+  <div class="multibuy-strip">
+    <p class="section-label">Multi-Buy Savings</p>
+    <h2 class="section-title" style="color:var(--white)">Buy more. <em>Save more.</em></h2>
+    <div class="multibuy-options">
+      <div class="multibuy-opt">
+        <div class="multibuy-qty">1 Bundle</div>
+        <div class="multibuy-price">Standard</div>
+        <div class="multibuy-save">Standard price</div>
+      </div>
+      <div class="multibuy-opt">
+        <div class="multibuy-qty">Any 2</div>
+        <div class="multibuy-price highlight">£37.99</div>
+        <div class="multibuy-save">Save ~£2</div>
+      </div>
+      <div class="multibuy-opt">
+        <div class="multibuy-qty">Any 3</div>
+        <div class="multibuy-price highlight">£54.99</div>
+        <div class="multibuy-save">Save ~£5</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Subscription -->
+  <section class="sub-section">
+    <div class="sub-inner">
+      <p class="section-label" style="color:var(--blue-dark)">Monthly Drop</p>
+      <h2 class="section-title" style="color:var(--black)">Never run out. <em>Ever.</em></h2>
+      <p style="color:#444">Subscribe to the Monthly Drop. One curated bundle every month, exclusive event access, insider drops first, and double loyalty points. Cancel whenever.</p>
+      <stripe-buy-button
+        buy-button-id="buy_btn_1TLpOMDDHsuciWtWzA58EFrc"
+        publishable-key="pk_live_51TLp62DDHsuciWtWRIfF8QDn1o4G9L6WSXFLHFXuHhIzFqwOwnLKu52kkBLQDb2ai5x5upriuLKCMC9AGjUVMpde007w5xayL1">
+      </stripe-buy-button>
+    </div>
+  </section>
+
+  <!-- Notes -->
+  <div class="bundle-notes">
+    <p>All bundles are for adults aged 18 and over. UK shipping only. Nicotine is an addictive substance. Contents may vary slightly as we source the best available product at time of packing. Questions? DM us @thesnusfellas.</p>
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand">The Snus Fellas</div>
+        <p class="footer-tagline">Premium UK nicotine pouches. Curated, priced right, shipped fast. For adults 18+ only.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigate</h4>
+        <ul>
+          <li onclick="showPage('home')">Home</li>
+          <li onclick="showPage('bundles')">Bundles</li>
+          <li onclick="showPage('rewards')">Rewards</li>
+          <li onclick="showPage('loyalty')">Loyalty</li>
+          <li onclick="showPage('membership')">Membership</li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Social</h4>
+        <ul>
+          <li>@thesnusfellas</li>
+          <li>Instagram</li>
+          <li>TikTok</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 The Snus Fellas. All rights reserved. Adults 18+ only. UK only.</p>
+      <div class="footer-social">
+        <a href="#">Instagram</a>
+        <a href="#">TikTok</a>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<!-- ════════════════════════════════════════
+     REWARDS PAGE
+════════════════════════════════════════ -->
+<div id="rewards" class="page">
+
+  <section class="rewards-hero">
+    <p class="section-label">Goodfella Rewards</p>
+    <h1 class="section-title">Spin. <em>Win</em>. Repeat.</h1>
+    <div class="divider center"></div>
+    <p style="color:rgba(247,245,241,0.5);font-size:0.85rem;max-width:400px;line-height:1.7">Your daily spin. One chance per login. Whatever it lands on is yours.</p>
+
+    <div class="wheel-section">
+      <div class="wheel-wrap">
+        <div class="wheel-pointer"></div>
+        <canvas id="rewardsWheel" width="320" height="320"></canvas>
+        <div class="wheel-center"></div>
+      </div>
+      <div class="spin-result" id="rewardsResult"></div>
+      <button class="btn-primary" id="rewardsSpinBtn" onclick="spinWheel('rewardsWheel','rewardsResult','rewardsSpinBtn')">Spin Now</button>
+    </div>
+  </section>
+
+  <section class="points-dashboard">
+    <div class="points-inner">
+      <p class="section-label">Your Balance</p>
+      <div class="points-card">
+        <div class="points-balance">230</div>
+        <div class="points-label">Goodfella Points</div>
+        <div class="tier-progress">
+          <div style="display:flex;justify-content:space-between;font-size:0.65rem;color:rgba(247,245,241,0.4)">
+            <span>Fella</span>
+            <span>770 pts to Senior Fella</span>
+          </div>
+          <div class="tier-bar-bg">
+            <div class="tier-bar-fill"></div>
+          </div>
+          <div class="tier-info">
+            <span>0 pts</span>
+            <span>1,000 pts</span>
+          </div>
+        </div>
+      </div>
+      <button class="btn-primary" onclick="showPage('loyalty')">View Redemption Store</button>
+    </div>
+  </section>
+
+  <footer style="background:var(--black);border-top:1px solid rgba(247,245,241,0.06)">
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand" style="color:var(--white)">The Snus Fellas</div>
+        <p class="footer-tagline" style="color:rgba(247,245,241,0.35)">Premium UK nicotine pouches. For adults 18+ only.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigate</h4>
+        <ul>
+          <li onclick="showPage('home')" style="color:rgba(247,245,241,0.5)">Home</li>
+          <li onclick="showPage('bundles')" style="color:rgba(247,245,241,0.5)">Bundles</li>
+          <li onclick="showPage('loyalty')" style="color:rgba(247,245,241,0.5)">Loyalty</li>
+          <li onclick="showPage('membership')" style="color:rgba(247,245,241,0.5)">Membership</li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 style="color:rgba(247,245,241,0.3)">Social</h4>
+        <ul>
+          <li style="color:rgba(247,245,241,0.4)">@thesnusfellas</li>
+          <li style="color:rgba(247,245,241,0.4)">Instagram</li>
+          <li style="color:rgba(247,245,241,0.4)">TikTok</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 The Snus Fellas. Adults 18+ only. UK only.</p>
+    </div>
+  </footer>
+</div>
+
+<!-- ════════════════════════════════════════
+     LOYALTY PAGE
+════════════════════════════════════════ -->
+<div id="loyalty" class="page">
+
+  <section class="loyalty-hero">
+    <p class="section-label" style="color:var(--blue-dark)">Goodfella Rewards</p>
+    <h1 class="section-title">Earn on <em>everything</em></h1>
+    <p>Every purchase earns points. Every spin wins something. The more you're in, the more you get back.</p>
+  </section>
+
+  <!-- Earn section -->
+  <section class="earn-section">
+    <div class="earn-inner">
+      <p class="section-label">How to Earn</p>
+      <h2 class="section-title">Points on <em>everything</em></h2>
+      <div class="earn-grid">
+        <div class="earn-card">
+          <div class="earn-pts">10 pts</div>
+          <div class="earn-action">Per £1 spent</div>
+          <div class="earn-note">Fella tier</div>
+        </div>
+        <div class="earn-card">
+          <div class="earn-pts">15 pts</div>
+          <div class="earn-action">Per £1 spent</div>
+          <div class="earn-note">Senior Fella tier</div>
+        </div>
+        <div class="earn-card">
+          <div class="earn-pts">20 pts</div>
+          <div class="earn-action">Per £1 spent</div>
+          <div class="earn-note">The Don tier</div>
+        </div>
+        <div class="earn-card">
+          <div class="earn-pts">+100</div>
+          <div class="earn-action">Referral bonus</div>
+          <div class="earn-note">When a friend orders</div>
+        </div>
+        <div class="earn-card">
+          <div class="earn-pts">+50</div>
+          <div class="earn-action">Birthday bonus</div>
+          <div class="earn-note">On your birthday month</div>
+        </div>
+        <div class="earn-card">
+          <div class="earn-pts">+2x</div>
+          <div class="earn-action">Monthly Drop</div>
+          <div class="earn-note">Double points on subscription</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Progress tracker -->
+  <section class="progress-section">
+    <div class="progress-inner">
+      <p class="section-label">Your Path</p>
+      <h2 class="section-title">Climb the <em>ranks</em></h2>
+      <div class="tier-steps">
+        <div class="tier-step active">
+          <div class="tier-dot" style="background:var(--blue);border-color:var(--blue)">🤝</div>
+          <div class="tier-step-name">Fella</div>
+          <div class="tier-step-pts">Free</div>
+        </div>
+        <div class="tier-step">
+          <div class="tier-dot">⭐</div>
+          <div class="tier-step-name">Senior Fella</div>
+          <div class="tier-step-pts">1,000 pts</div>
+        </div>
+        <div class="tier-step">
+          <div class="tier-dot">👑</div>
+          <div class="tier-step-name">The Don</div>
+          <div class="tier-step-pts">3,000 pts</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Redemption store -->
+  <section class="store-section">
+    <div class="store-inner">
+      <p class="section-label">Spend Your Points</p>
+      <h2 class="section-title">The <em>Redemption Store</em></h2>
+      <div class="store-grid">
+        <div class="store-item">
+          <div class="store-item-pts">200<span>points</span></div>
+          <div class="store-item-name">5% Off Next Order</div>
+          <button class="store-item-btn">Redeem</button>
+        </div>
+        <div class="store-item">
+          <div class="store-item-pts">400<span>points</span></div>
+          <div class="store-item-name">10% Off Next Order</div>
+          <button class="store-item-btn">Redeem</button>
+        </div>
+        <div class="store-item">
+          <div class="store-item-pts">500<span>points</span></div>
+          <div class="store-item-name">Free Shipping</div>
+          <button class="store-item-btn">Redeem</button>
+        </div>
+        <div class="store-item">
+          <div class="store-item-pts">750<span>points</span></div>
+          <div class="store-item-name">Free Can of Your Choice</div>
+          <button class="store-item-btn">Redeem</button>
+        </div>
+        <div class="store-item">
+          <div class="store-item-pts">1,000<span>points</span></div>
+          <div class="store-item-name">Free Bundle</div>
+          <button class="store-item-btn">Redeem</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand">The Snus Fellas</div>
+        <p class="footer-tagline">Premium UK nicotine pouches. Curated, priced right, shipped fast. For adults 18+ only.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigate</h4>
+        <ul>
+          <li onclick="showPage('home')">Home</li>
+          <li onclick="showPage('bundles')">Bundles</li>
+          <li onclick="showPage('rewards')">Rewards</li>
+          <li onclick="showPage('membership')">Membership</li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Social</h4>
+        <ul>
+          <li>@thesnusfellas</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 The Snus Fellas. All rights reserved. Adults 18+ only. UK only.</p>
+      <div class="footer-social">
+        <a href="#">Instagram</a>
+        <a href="#">TikTok</a>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<!-- ════════════════════════════════════════
+     MEMBERSHIP PAGE
+════════════════════════════════════════ -->
+<div id="membership" class="page">
+
+  <section class="membership-hero">
+    <p class="section-label">Goodfella Rewards</p>
+    <h1 class="section-title">Pick your <em>tier</em></h1>
+    <p>Three tiers. Free to join. The higher you climb, the more you get back.</p>
+  </section>
+
+  <section class="tiers-section">
+    <div class="tiers-grid">
+
+      <!-- Fella -->
+      <div class="tier-card">
+        <div class="tier-emoji">🤝</div>
+        <h2 class="tier-name">Fella</h2>
+        <div class="tier-unlock">Free — sign up to unlock</div>
+        <ul class="tier-perks">
+          <li>Spin the wheel on every login</li>
+          <li>10 points per £1 spent</li>
+          <li>Birthday bonus points</li>
+          <li>Access to the redemption store</li>
+        </ul>
+        <div class="tier-pts-rate">10 pts<span>per £1 spent</span></div>
+        <button class="btn-outline" onclick="showPage('rewards')">Join Free</button>
+      </div>
+
+      <!-- Senior Fella -->
+      <div class="tier-card featured">
+        <div class="tier-emoji">⭐</div>
+        <h2 class="tier-name">Senior <em>Fella</em></h2>
+        <div class="tier-unlock">Unlock at 1,000 points</div>
+        <ul class="tier-perks">
+          <li>5% off every order</li>
+          <li>15 points per £1 spent</li>
+          <li>Monthly bonus spin</li>
+          <li>Priority support</li>
+          <li>Early access to new bundles</li>
+        </ul>
+        <div class="tier-pts-rate">15 pts<span>per £1 spent</span></div>
+        <button class="btn-primary" onclick="showPage('bundles')">Start Earning</button>
+      </div>
+
+      <!-- The Don -->
+      <div class="tier-card">
+        <div class="tier-emoji">👑</div>
+        <h2 class="tier-name">The <em>Don</em></h2>
+        <div class="tier-unlock">Unlock at 3,000 points</div>
+        <ul class="tier-perks">
+          <li>10% off every order</li>
+          <li>20 points per £1 spent</li>
+          <li>Free monthly can</li>
+          <li>Double referral points</li>
+          <li>Name on the Don Wall</li>
+          <li>Direct WhatsApp line</li>
+        </ul>
+        <div class="tier-pts-rate">20 pts<span>per £1 spent</span></div>
+        <button class="btn-outline" onclick="showPage('bundles')">Chase The Don</button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Comparison table -->
+  <section class="compare-section">
+    <div class="compare-inner">
+      <p class="section-label">Side by Side</p>
+      <h2 class="section-title">Full <em>comparison</em></h2>
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Fella</th>
+            <th>Senior Fella</th>
+            <th>The Don</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Unlock</td>
+            <td>Free</td>
+            <td>1,000 pts</td>
+            <td>3,000 pts</td>
+          </tr>
+          <tr>
+            <td>Points per £1</td>
+            <td>10</td>
+            <td>15</td>
+            <td>20</td>
+          </tr>
+          <tr>
+            <td>Discount</td>
+            <td class="no">—</td>
+            <td>5% off</td>
+            <td>10% off</td>
+          </tr>
+          <tr>
+            <td>Spin on login</td>
+            <td class="yes">✓</td>
+            <td class="yes">✓</td>
+            <td class="yes">✓</td>
+          </tr>
+          <tr>
+            <td>Monthly bonus spin</td>
+            <td class="no">—</td>
+            <td class="yes">✓</td>
+            <td class="yes">✓</td>
+          </tr>
+          <tr>
+            <td>Birthday bonus</td>
+            <td class="yes">✓</td>
+            <td class="yes">✓</td>
+            <td class="yes">✓</td>
+          </tr>
+          <tr>
+            <td>Free monthly can</td>
+            <td class="no">—</td>
+            <td class="no">—</td>
+            <td class="yes">✓</td>
+          </tr>
+          <tr>
+            <td>Don Wall</td>
+            <td class="no">—</td>
+            <td class="no">—</td>
+            <td class="yes">✓</td>
+          </tr>
+          <tr>
+            <td>WhatsApp line</td>
+            <td class="no">—</td>
+            <td class="no">—</td>
+            <td class="yes">✓</td>
+          </tr>
+          <tr>
+            <td>Double referrals</td>
+            <td class="no">—</td>
+            <td class="no">—</td>
+            <td class="yes">✓</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Don Wall -->
+  <section class="don-wall">
+    <p class="section-label">Hall of Dons</p>
+    <h2 class="section-title">The Don <em>Wall</em></h2>
+    <p>These are the Fellas who made it to the top. Earn 3,000 points, become The Don, and your name goes here. Permanently.</p>
+    <div class="don-spots">
+      <div class="don-spot">Open</div>
+      <div class="don-spot">Open</div>
+      <div class="don-spot">Open</div>
+      <div class="don-spot">Open</div>
+      <div class="don-spot">Open</div>
+      <div class="don-spot">Open</div>
+      <div class="don-spot">Open</div>
+      <div class="don-spot">Open</div>
+      <div class="don-spot">Open</div>
+      <div class="don-spot">Open</div>
+    </div>
+    <button class="btn-primary" style="margin-top:2.5rem" onclick="showPage('bundles')">Earn Your Spot</button>
+  </section>
+
+  <footer style="background:var(--black);border-top:1px solid rgba(247,245,241,0.06)">
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand" style="color:var(--white)">The Snus Fellas</div>
+        <p class="footer-tagline" style="color:rgba(247,245,241,0.35)">Premium UK nicotine pouches. For adults 18+ only.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigate</h4>
+        <ul>
+          <li onclick="showPage('home')" style="color:rgba(247,245,241,0.5)">Home</li>
+          <li onclick="showPage('bundles')" style="color:rgba(247,245,241,0.5)">Bundles</li>
+          <li onclick="showPage('rewards')" style="color:rgba(247,245,241,0.5)">Rewards</li>
+          <li onclick="showPage('loyalty')" style="color:rgba(247,245,241,0.5)">Loyalty</li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 style="color:rgba(247,245,241,0.3)">Social</h4>
+        <ul>
+          <li style="color:rgba(247,245,241,0.4)">@thesnusfellas</li>
+          <li style="color:rgba(247,245,241,0.4)">Instagram</li>
+          <li style="color:rgba(247,245,241,0.4)">TikTok</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 The Snus Fellas. Adults 18+ only. UK only.</p>
+    </div>
+  </footer>
+</div>
+
+<!-- ─── Floating Spin FAB ─── -->
+<button class="spin-fab" onclick="openSpinModal()" title="Spin the wheel">🎰</button>
+
+<!-- ─── Spin Modal ─── -->
+<div class="modal-overlay" id="spinModal">
+  <div class="modal-box">
+    <h2 class="modal-title">Spin the <em style="color:var(--blue);font-style:italic">Wheel</em></h2>
+    <p class="modal-sub">One spin. Whatever it lands on is yours.</p>
+    <div class="modal-wheel-wrap">
+      <div class="modal-pointer"></div>
+      <canvas id="modalWheel" width="280" height="280"></canvas>
+      <div class="modal-center"></div>
+    </div>
+    <div class="modal-result" id="modalResult"></div>
+    <button class="btn-primary" id="modalSpinBtn" onclick="spinWheel('modalWheel','modalResult','modalSpinBtn')">Spin</button>
+    <br>
+    <button class="modal-close" onclick="closeSpinModal()">Close</button>
+  </div>
+</div>
+
+<script>
+  // ─── Navigation ───
+  function showPage(id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-links li').forEach(li => li.classList.remove('active'));
+
+    var page = document.getElementById(id);
+    if (page) {
+      page.classList.add('active');
+      window.scrollTo(0, 0);
+    }
+
+    var navItem = document.getElementById('nav-' + id);
+    if (navItem) navItem.classList.add('active');
+
+    // Draw wheel if rewards page
+    if (id === 'rewards') {
+      setTimeout(function() { drawWheel('rewardsWheel'); }, 100);
+    }
+  }
+
+  // ─── Spin Wheel ───
+  var PRIZES = [
+    { label: '10% Off',   color: '#5BC4E8', text: '#0d0d0d' },
+    { label: 'Free Can',  color: '#0d0d0d', text: '#f7f5f1' },
+    { label: '5% Off',    color: '#3aa8cc', text: '#0d0d0d' },
+    { label: '+100 Pts',  color: '#1a1a1a', text: '#5BC4E8' },
+    { label: '15% Off',   color: '#5BC4E8', text: '#0d0d0d' },
+    { label: 'Free Ship', color: '#0d0d0d', text: '#f7f5f1' },
+    { label: '+50 Pts',   color: '#3aa8cc', text: '#0d0d0d' },
+    { label: '20% Off',   color: '#1a1a1a', text: '#5BC4E8' }
+  ];
+
+  var wheelAngles = {};
+  var wheelSpinning = {};
+
+  function drawWheel(canvasId, rotation) {
+    var canvas = document.getElementById(canvasId);
+    if (!canvas) return;
+    var ctx = canvas.getContext('2d');
+    var size = canvas.width;
+    var cx = size / 2;
+    var cy = size / 2;
+    var r = cx - 4;
+    var arc = (2 * Math.PI) / PRIZES.length;
+    var rot = rotation || 0;
+
+    ctx.clearRect(0, 0, size, size);
+
+    PRIZES.forEach(function(prize, i) {
+      var startAngle = rot + i * arc;
+      var endAngle = startAngle + arc;
+
+      ctx.beginPath();
+      ctx.moveTo(cx, cy);
+      ctx.arc(cx, cy, r, startAngle, endAngle);
+      ctx.closePath();
+      ctx.fillStyle = prize.color;
+      ctx.fill();
+      ctx.strokeStyle = 'rgba(247,245,241,0.06)';
+      ctx.lineWidth = 1;
+      ctx.stroke();
+
+      ctx.save();
+      ctx.translate(cx, cy);
+      ctx.rotate(startAngle + arc / 2);
+      ctx.textAlign = 'right';
+      ctx.fillStyle = prize.text;
+      ctx.font = '500 ' + Math.floor(size / 22) + 'px DM Mono, monospace';
+      ctx.fillText(prize.label, r - 10, 4);
+      ctx.restore();
+    });
+  }
+
+  function spinWheel(canvasId, resultId, btnId) {
+    if (wheelSpinning[canvasId]) return;
+    wheelSpinning[canvasId] = true;
+
+    var btn = document.getElementById(btnId);
+    var resultEl = document.getElementById(resultId);
+    if (btn) btn.disabled = true;
+    if (resultEl) resultEl.textContent = '';
+
+    var currentAngle = wheelAngles[canvasId] || 0;
+    var totalSpin = (Math.random() * 4 + 6) * 2 * Math.PI; // 6-10 full rotations
+    var targetAngle = currentAngle + totalSpin;
+    var duration = 4000;
+    var start = null;
+
+    function easeOut(t) {
+      return 1 - Math.pow(1 - t, 3);
+    }
+
+    function step(timestamp) {
+      if (!start) start = timestamp;
+      var elapsed = timestamp - start;
+      var progress = Math.min(elapsed / duration, 1);
+      var angle = currentAngle + totalSpin * easeOut(progress);
+
+      drawWheel(canvasId, angle);
+
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      } else {
+        wheelAngles[canvasId] = angle;
+        wheelSpinning[canvasId] = false;
+
+        // Work out which prize is at top (pointer is at top = -PI/2)
+        var arc = (2 * Math.PI) / PRIZES.length;
+        var normalised = ((angle % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI);
+        var pointerAngle = (2 * Math.PI - normalised + (3 * Math.PI / 2)) % (2 * Math.PI);
+        var index = Math.floor(pointerAngle / arc) % PRIZES.length;
+
+        if (resultEl) resultEl.textContent = 'You won: ' + PRIZES[index].label;
+        if (btn) btn.disabled = false;
+      }
+    }
+
+    requestAnimationFrame(step);
+  }
+
+  // ─── Modal ───
+  function openSpinModal() {
+    document.getElementById('spinModal').classList.add('open');
+    setTimeout(function() { drawWheel('modalWheel'); }, 50);
+  }
+
+  function closeSpinModal() {
+    document.getElementById('spinModal').classList.remove('open');
+  }
+
+  // Close modal on overlay click
+  document.getElementById('spinModal').addEventListener('click', function(e) {
+    if (e.target === this) closeSpinModal();
+  });
+
+  // ─── Init ───
+  drawWheel('rewardsWheel');
+  drawWheel('modalWheel');
+</script>
+
+</body>
+</html>

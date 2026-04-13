@@ -1,0 +1,8 @@
+{
+  "name": "thesnusfellas",
+  "version": "1.0.0",
+  "description": "The Snus Fellas — Premium UK nicotine pouch bundles",
+  "dependencies": {
+    "stripe": "^14.0.0"
+  }
+}
