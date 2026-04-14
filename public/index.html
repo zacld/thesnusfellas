@@ -222,7 +222,15 @@
       width: clamp(220px, 40vw, 420px);
       height: auto;
       margin-bottom: 1.5rem;
-      filter: drop-shadow(0 4px 24px rgba(91,196,232,0.18));
+      mix-blend-mode: screen;
+      filter: drop-shadow(0 8px 32px rgba(91,196,232,0.25));
+      animation: float 3.5s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%   { transform: translateY(0px); }
+      50%  { transform: translateY(-14px); }
+      100% { transform: translateY(0px); }
     }
 
     .hero-wordmark {
