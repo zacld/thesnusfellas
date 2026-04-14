@@ -8,7 +8,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
-  <script async src="https://js.stripe.com/v3/buy-button.js"></script>
   <style>
     /* ─── Reset ─── */
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -584,12 +583,25 @@
       align-items: center;
     }
 
-    stripe-buy-button {
-      --stripe-buy-button-background-color: #5BC4E8;
-      --stripe-buy-button-text-color: #0d0d0d;
-      --stripe-buy-button-border-radius: 0px;
-      --stripe-buy-button-font-family: 'DM Mono', monospace;
+    .btn-buy {
+      display: inline-block;
+      padding: 0.75rem 1.75rem;
+      background: var(--blue);
+      color: var(--black);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s;
+      white-space: nowrap;
     }
+    .btn-buy:hover { background: var(--blue-dark); }
+    .btn-buy.dark { background: var(--white); color: var(--black); }
+    .btn-buy.dark:hover { background: var(--off-white); }
 
     /* Multi-buy strip */
     .multibuy-strip {
@@ -1617,12 +1629,7 @@
       </ul>
       <div class="bundle-footer" style="border-top-color:rgba(139,105,20,0.2)">
         <div class="bundle-price" style="color:var(--black)">£11.99</div>
-        <div class="stripe-btn-wrap">
-          <stripe-buy-button
-            buy-button-id="buy_btn_1TLpNBDDHsuciWtWyG2rUOeb"
-            publishable-key="pk_live_51TLp62DDHsuciWtWRIfF8QDn1o4G9L6WSXFLHFXuHhIzFqwOwnLKu52kkBLQDb2ai5x5upriuLKCMC9AGjUVMpde007w5xayL1">
-          </stripe-buy-button>
-        </div>
+        <a href="https://buy.stripe.com/eVq3cv06f1LA9573kj1B600" target="_blank" class="btn-buy">Buy Now</a>
       </div>
     </div>
 
@@ -1640,12 +1647,7 @@
       </ul>
       <div class="bundle-footer" style="border-top-color:rgba(0,106,167,0.2)">
         <div class="bundle-price" style="color:var(--black)">£11.99</div>
-        <div class="stripe-btn-wrap">
-          <stripe-buy-button
-            buy-button-id="buy_btn_1TLpNBDDHsuciWtWyG2rUOeb"
-            publishable-key="pk_live_51TLp62DDHsuciWtWRIfF8QDn1o4G9L6WSXFLHFXuHhIzFqwOwnLKu52kkBLQDb2ai5x5upriuLKCMC9AGjUVMpde007w5xayL1">
-          </stripe-buy-button>
-        </div>
+        <a href="https://buy.stripe.com/eVq3cv06f1LA9573kj1B600" target="_blank" class="btn-buy">Buy Now</a>
       </div>
     </div>
 
@@ -1663,12 +1665,7 @@
       </ul>
       <div class="bundle-footer" style="border-top-color:rgba(186,12,47,0.2)">
         <div class="bundle-price" style="color:var(--black)">£11.99</div>
-        <div class="stripe-btn-wrap">
-          <stripe-buy-button
-            buy-button-id="buy_btn_1TLpNBDDHsuciWtWyG2rUOeb"
-            publishable-key="pk_live_51TLp62DDHsuciWtWRIfF8QDn1o4G9L6WSXFLHFXuHhIzFqwOwnLKu52kkBLQDb2ai5x5upriuLKCMC9AGjUVMpde007w5xayL1">
-          </stripe-buy-button>
-        </div>
+        <a href="https://buy.stripe.com/eVq3cv06f1LA9573kj1B600" target="_blank" class="btn-buy">Buy Now</a>
       </div>
     </div>
 
@@ -1688,12 +1685,7 @@
       </ul>
       <div class="bundle-footer" style="border-top-color:rgba(192,72,74,0.2)">
         <div class="bundle-price" style="color:var(--black)">£19.99</div>
-        <div class="stripe-btn-wrap">
-          <stripe-buy-button
-            buy-button-id="buy_btn_1TLpOMDDHsuciWtWzA58EFrc"
-            publishable-key="pk_live_51TLp62DDHsuciWtWRIfF8QDn1o4G9L6WSXFLHFXuHhIzFqwOwnLKu52kkBLQDb2ai5x5upriuLKCMC9AGjUVMpde007w5xayL1">
-          </stripe-buy-button>
-        </div>
+        <a href="https://buy.stripe.com/14AeVd3irduibdfaML1B601" target="_blank" class="btn-buy">Buy Now</a>
       </div>
     </div>
 
@@ -1713,12 +1705,7 @@
       </ul>
       <div class="bundle-footer" style="border-top-color:rgba(26,26,46,0.2)">
         <div class="bundle-price" style="color:var(--black)">£19.99</div>
-        <div class="stripe-btn-wrap">
-          <stripe-buy-button
-            buy-button-id="buy_btn_1TLpOMDDHsuciWtWzA58EFrc"
-            publishable-key="pk_live_51TLp62DDHsuciWtWRIfF8QDn1o4G9L6WSXFLHFXuHhIzFqwOwnLKu52kkBLQDb2ai5x5upriuLKCMC9AGjUVMpde007w5xayL1">
-          </stripe-buy-button>
-        </div>
+        <a href="https://buy.stripe.com/14AeVd3irduibdfaML1B601" target="_blank" class="btn-buy">Buy Now</a>
       </div>
     </div>
 
@@ -1738,12 +1725,7 @@
       </ul>
       <div class="bundle-footer" style="border-top-color:rgba(0,133,124,0.2)">
         <div class="bundle-price" style="color:var(--black)">£19.99</div>
-        <div class="stripe-btn-wrap">
-          <stripe-buy-button
-            buy-button-id="buy_btn_1TLpOMDDHsuciWtWzA58EFrc"
-            publishable-key="pk_live_51TLp62DDHsuciWtWRIfF8QDn1o4G9L6WSXFLHFXuHhIzFqwOwnLKu52kkBLQDb2ai5x5upriuLKCMC9AGjUVMpde007w5xayL1">
-          </stripe-buy-button>
-        </div>
+        <a href="https://buy.stripe.com/14AeVd3irduibdfaML1B601" target="_blank" class="btn-buy">Buy Now</a>
       </div>
     </div>
 
@@ -1761,12 +1743,7 @@
       </ul>
       <div class="bundle-footer" style="border-top-color:rgba(247,245,241,0.1)">
         <div class="bundle-price" style="color:var(--white)">£11.99</div>
-        <div class="stripe-btn-wrap">
-          <stripe-buy-button
-            buy-button-id="buy_btn_1TLpNBDDHsuciWtWyG2rUOeb"
-            publishable-key="pk_live_51TLp62DDHsuciWtWRIfF8QDn1o4G9L6WSXFLHFXuHhIzFqwOwnLKu52kkBLQDb2ai5x5upriuLKCMC9AGjUVMpde007w5xayL1">
-          </stripe-buy-button>
-        </div>
+        <a href="https://buy.stripe.com/eVq3cv06f1LA9573kj1B600" target="_blank" class="btn-buy">Buy Now</a>
       </div>
     </div>
 
@@ -1801,10 +1778,7 @@
       <p class="section-label" style="color:var(--blue-dark)">Monthly Drop</p>
       <h2 class="section-title" style="color:var(--black)">Never run out. <em>Ever.</em></h2>
       <p style="color:#444">Subscribe to the Monthly Drop. One curated bundle every month, exclusive event access, insider drops first, and double loyalty points. Cancel whenever.</p>
-      <stripe-buy-button
-        buy-button-id="buy_btn_1TLpOMDDHsuciWtWzA58EFrc"
-        publishable-key="pk_live_51TLp62DDHsuciWtWRIfF8QDn1o4G9L6WSXFLHFXuHhIzFqwOwnLKu52kkBLQDb2ai5x5upriuLKCMC9AGjUVMpde007w5xayL1">
-      </stripe-buy-button>
+      <a href="https://buy.stripe.com/14AeVd3irduibdfaML1B601" target="_blank" class="btn-buy">Subscribe — £19.99/mo</a>
     </div>
   </section>
 
