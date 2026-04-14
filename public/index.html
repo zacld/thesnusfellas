@@ -218,6 +218,13 @@
       margin-bottom: 1.25rem;
     }
 
+    .hero-logo {
+      width: clamp(220px, 40vw, 420px);
+      height: auto;
+      margin-bottom: 1.5rem;
+      filter: drop-shadow(0 4px 24px rgba(91,196,232,0.18));
+    }
+
     .hero-wordmark {
       font-family: 'Cormorant Garamond', serif;
       font-weight: 300;
@@ -1467,8 +1474,8 @@
 
   <!-- Hero -->
   <section class="home-hero">
+    <img src="/logo.png" alt="The Snus Fellas" class="hero-logo">
     <p class="hero-eyebrow">Premium UK Nicotine Pouches</p>
-    <h1 class="hero-wordmark">The Snus Fellas</h1>
     <p class="hero-tagline">Find Your Strength</p>
     <div class="hero-actions">
       <button class="btn-primary" onclick="showPage('bundles')">Shop Bundles</button>
