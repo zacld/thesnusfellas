@@ -1459,6 +1459,9 @@
       .multibuy-options { gap: 1.5rem; }
       .tier-steps { flex-direction: column; gap: 1.5rem; }
       .tier-steps::before { display: none; }
+      .widow-full { flex-direction: column !important; align-items: flex-start !important; gap: 1.5rem !important; padding: 2rem !important; }
+      .widow-full ul { text-align: left !important; }
+      .widow-full .bundle-footer { justify-content: flex-start !important; }
     }
 
     /* ─── Spin Email Gate ─── */
@@ -1629,7 +1632,7 @@
         <h2 class="section-title">A new bundle.<br><em>Every month.</em></h2>
         <div class="divider"></div>
         <div class="monthly-price">£19.99<span>/mo</span></div>
-        <button class="btn-primary" onclick="showPage('bundles')">Subscribe Now</button>
+        <button class="btn-primary" onclick="showPage('membership')">Subscribe Now</button>
       </div>
       <div>
         <ul class="monthly-perks">
@@ -1812,21 +1815,25 @@
       </div>
     </div>
 
-    <!-- Widowmaker -->
-    <div class="bundle-card dark" style="border-left:3px solid rgba(247,245,241,0.2)">
-      <div>
-        <span class="bundle-tag" style="background:rgba(247,245,241,0.1);color:rgba(247,245,241,0.6);">Extreme</span>
+    <!-- Widowmaker — full width -->
+    <div class="bundle-card dark widow-full" style="grid-column:1/-1;border-top:3px solid rgba(247,245,241,0.15);border-left:none;flex-direction:row;align-items:center;gap:3rem;padding:3rem 3.5rem;min-height:220px">
+      <div style="flex:1;min-width:0">
+        <div style="margin-bottom:0.75rem">
+          <span class="bundle-tag" style="background:rgba(247,245,241,0.1);color:rgba(247,245,241,0.6);">Extreme</span>
+        </div>
+        <h2 class="bundle-name" style="color:var(--white);font-size:clamp(2.2rem,5vw,3.5rem);line-height:1.05;margin-bottom:0.75rem">Widowmaker</h2>
+        <p class="bundle-desc" style="color:rgba(247,245,241,0.55);font-size:0.85rem;max-width:500px">This is not a starter bundle. These three hit hard, fast, and unapologetically. Not for the faint-hearted.</p>
       </div>
-      <h2 class="bundle-name" style="color:var(--white)">Widowmaker</h2>
-      <p class="bundle-desc" style="color:rgba(247,245,241,0.55)">This is not a starter bundle. These three hit hard, fast, and unapologetically.</p>
-      <ul class="bundle-contents">
-        <li style="color:rgba(247,245,241,0.5)">FEDRS Ice Cool Energy Hard</li>
-        <li style="color:rgba(247,245,241,0.5)">Siberia White Dry</li>
-        <li style="color:rgba(247,245,241,0.5)">Corvus Extreme Menthol</li>
-      </ul>
-      <div class="bundle-footer" style="border-top-color:rgba(247,245,241,0.1)">
-        <div class="bundle-price" style="color:var(--white)">£11.99</div>
-        <a href="https://buy.stripe.com/eVq3cv06f1LA9573kj1B600" target="_blank" class="btn-buy">Buy Now</a>
+      <div style="flex:0 0 auto;display:flex;flex-direction:column;gap:1.25rem;align-items:flex-end">
+        <ul class="bundle-contents" style="text-align:right;list-style:none;padding:0">
+          <li style="color:rgba(247,245,241,0.5)">FEDRS Ice Cool Energy Hard</li>
+          <li style="color:rgba(247,245,241,0.5)">Siberia White Dry</li>
+          <li style="color:rgba(247,245,241,0.5)">Corvus Extreme Menthol</li>
+        </ul>
+        <div class="bundle-footer" style="border-top:1px solid rgba(247,245,241,0.1);padding-top:1.25rem;width:100%;justify-content:flex-end;gap:1.5rem">
+          <div class="bundle-price" style="color:var(--white)">£11.99</div>
+          <a href="https://buy.stripe.com/eVq3cv06f1LA9573kj1B600" target="_blank" class="btn-buy">Buy Now</a>
+        </div>
       </div>
     </div>
 
@@ -2019,7 +2026,7 @@
           <li>Birthday bonus points</li>
           <li>Access to the redemption store</li>
         </ul>
-        <div class="tier-pts-rate">10 pts<span>per £1 spent</span></div>
+        <div class="tier-pts-rate">Free<span>forever</span></div>
         <button class="btn-outline" onclick="showPage('rewards')">Join Free</button>
       </div>
 
@@ -2027,7 +2034,7 @@
       <div class="tier-card featured">
         <div class="tier-emoji">⭐</div>
         <h2 class="tier-name">Senior <em>Fella</em></h2>
-        <div class="tier-unlock">Unlock at 1,000 points</div>
+        <div class="tier-unlock">£4.99/mo — or earn your way up</div>
         <ul class="tier-perks">
           <li>5% off every order</li>
           <li>15 points per £1 spent</li>
@@ -2035,7 +2042,7 @@
           <li>Priority support</li>
           <li>Early access to new bundles</li>
         </ul>
-        <div class="tier-pts-rate">15 pts<span>per £1 spent</span></div>
+        <div class="tier-pts-rate">£4.99<span>/month</span></div>
         <button class="btn-primary" onclick="showPage('bundles')">Start Earning</button>
       </div>
 
@@ -2043,7 +2050,7 @@
       <div class="tier-card">
         <div class="tier-emoji">👑</div>
         <h2 class="tier-name">The <em>Don</em></h2>
-        <div class="tier-unlock">Unlock at 3,000 points</div>
+        <div class="tier-unlock">£9.99/mo — or earn your way up</div>
         <ul class="tier-perks">
           <li>10% off every order</li>
           <li>20 points per £1 spent</li>
@@ -2052,7 +2059,7 @@
           <li>Name on the Don Wall</li>
           <li>Direct WhatsApp line</li>
         </ul>
-        <div class="tier-pts-rate">20 pts<span>per £1 spent</span></div>
+        <div class="tier-pts-rate">£9.99<span>/month</span></div>
         <button class="btn-outline" onclick="showPage('bundles')">Chase The Don</button>
       </div>
 
