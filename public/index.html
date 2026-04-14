@@ -1544,6 +1544,129 @@
       .widow-full .bundle-footer { justify-content: flex-start !important; }
     }
 
+    /* ─── Our Can Video Section ─── */
+    .our-can-section {
+      position: relative;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .our-can-section video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.7;
+    }
+
+    .our-can-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(13,13,13,0.4) 0%, rgba(13,13,13,0.1) 50%, rgba(13,13,13,0.6) 100%);
+    }
+
+    .our-can-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      pointer-events: none;
+    }
+
+    .our-can-content p.section-label {
+      color: var(--blue);
+      margin-bottom: 1rem;
+    }
+
+    .our-can-content h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(3rem, 8vw, 6rem);
+      line-height: 1;
+      color: var(--white);
+      margin-bottom: 1.5rem;
+    }
+
+    .our-can-content h2 em { font-style: italic; color: var(--blue); }
+
+    .our-can-content p.sub {
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(247,245,241,0.6);
+      margin-bottom: 2rem;
+    }
+
+    .our-can-btn {
+      position: relative;
+      z-index: 2;
+      pointer-events: all;
+      display: inline-block;
+      padding: 0.875rem 2.5rem;
+      background: transparent;
+      color: var(--white);
+      border: 1px solid rgba(247,245,241,0.5);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 400;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.25s, border-color 0.25s;
+    }
+
+    .our-can-btn:hover {
+      background: var(--blue);
+      border-color: var(--blue);
+      color: var(--black);
+    }
+
+    /* ─── Can Page ─── */
+    #can { background: var(--black); }
+
+    .can-page-inner {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 6rem 2rem 4rem;
+      text-align: center;
+    }
+
+    .can-page-img {
+      width: min(600px, 90vw);
+      height: min(600px, 90vw);
+      object-fit: cover;
+      border-radius: 50%;
+      box-shadow: 0 0 80px rgba(91,196,232,0.15), 0 20px 60px rgba(0,0,0,0.7);
+      margin-bottom: 3rem;
+      animation: float 4s ease-in-out infinite;
+    }
+
+    .can-page-inner h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      margin-bottom: 1rem;
+    }
+
+    .can-page-inner h1 em { font-style: italic; color: var(--blue); }
+
+    .can-page-inner p {
+      font-size: 0.82rem;
+      letter-spacing: 0.05em;
+      color: rgba(247,245,241,0.55);
+      max-width: 480px;
+      line-height: 1.8;
+      margin-bottom: 2rem;
+    }
+
     /* ─── Spin Email Gate ─── */
     .spin-gate {
       text-align: center;
@@ -1623,6 +1746,7 @@
     <li id="nav-home" class="active"><span onclick="showPage('home')">Home</span></li>
     <li id="nav-bundles"><span onclick="showPage('bundles')">Bundles</span></li>
     <li id="nav-rewards"><span onclick="showPage('rewards')">Rewards</span></li>
+    <li id="nav-can"><span onclick="showPage('can')">Our Can</span></li>
     <li id="nav-membership"><span onclick="showPage('membership')">Membership</span></li>
   </ul>
 </nav>
@@ -1694,6 +1818,20 @@
         <p class="pillar-body">Earn points on every order. Spin the wheel. Get discount codes, free cans, and priority access to new drops. The Goodfella Rewards programme rewards loyalty properly.</p>
       </div>
     </div>
+  </section>
+
+  <!-- Our Can Video Section -->
+  <section class="our-can-section" onclick="showPage('can')">
+    <video autoplay muted loop playsinline>
+      <source src="/can.mp4" type="video/mp4">
+    </video>
+    <div class="our-can-overlay"></div>
+    <div class="our-can-content">
+      <p class="section-label">The Snus Fellas</p>
+      <h2>Our <em>Own Can</em></h2>
+      <p class="sub">Handcrafted. Premium. Ours.</p>
+    </div>
+    <button class="our-can-btn" onclick="event.stopPropagation();showPage('can')">Discover the Can</button>
   </section>
 
   <!-- Goodfella Rewards CTA -->
@@ -2266,6 +2404,39 @@
           <li style="color:rgba(247,245,241,0.4)">@thesnusfellas</li>
           <li style="color:rgba(247,245,241,0.4)">Instagram</li>
           <li style="color:rgba(247,245,241,0.4)">TikTok</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 The Snus Fellas. Adults 18+ only. UK only.</p>
+    </div>
+  </footer>
+</div>
+
+<!-- ════════════════════════════════════════
+     OUR CAN PAGE
+════════════════════════════════════════ -->
+<div id="can" class="page">
+  <div class="can-page-inner">
+    <img src="/can.jpg" alt="The Snus Fellas — Our Own Can" class="can-page-img">
+    <h1>The Snus Fellas <em>Can</em></h1>
+    <p>Our very own. Hand-picked pouches, sealed in the Snus Fellas can. This is what it means to be part of the family.</p>
+    <button class="btn-primary" onclick="showPage('bundles')">Shop the Bundles</button>
+  </div>
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand">The Snus Fellas</div>
+        <p class="footer-tagline">Premium UK nicotine pouches. For adults 18+ only.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigate</h4>
+        <ul>
+          <li onclick="showPage('home')">Home</li>
+          <li onclick="showPage('bundles')">Bundles</li>
+          <li onclick="showPage('rewards')">Rewards</li>
+          <li onclick="showPage('can')">Our Can</li>
+          <li onclick="showPage('membership')">Membership</li>
         </ul>
       </div>
     </div>
