@@ -1460,6 +1460,75 @@
       .tier-steps { flex-direction: column; gap: 1.5rem; }
       .tier-steps::before { display: none; }
     }
+
+    /* ─── Spin Email Gate ─── */
+    .spin-gate {
+      text-align: center;
+      padding: 1rem 0;
+    }
+    .spin-gate h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 1.6rem;
+      margin-bottom: 0.5rem;
+    }
+    .spin-gate h3 em { font-style: italic; color: var(--blue); }
+    .spin-gate p {
+      font-size: 0.75rem;
+      letter-spacing: 0.05em;
+      color: rgba(247,245,241,0.5);
+      margin-bottom: 1.5rem;
+    }
+    .spin-gate-input {
+      display: block;
+      width: 100%;
+      max-width: 320px;
+      margin: 0 auto 0.75rem;
+      padding: 0.75rem 1rem;
+      background: rgba(247,245,241,0.06);
+      border: 1px solid rgba(247,245,241,0.15);
+      color: var(--white);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.8rem;
+      letter-spacing: 0.05em;
+      outline: none;
+    }
+    .spin-gate-input::placeholder { color: rgba(247,245,241,0.3); }
+    .spin-gate-input:focus { border-color: var(--blue); }
+    .spin-gate-or {
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      color: rgba(247,245,241,0.3);
+      margin: 0.75rem 0;
+      text-transform: uppercase;
+    }
+    .btn-google {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      width: 100%;
+      max-width: 320px;
+      margin: 0 auto;
+      padding: 0.75rem 1rem;
+      background: #fff;
+      color: #3c3c3c;
+      border: none;
+      cursor: pointer;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      font-weight: 400;
+      letter-spacing: 0.05em;
+      transition: background 0.2s;
+    }
+    .btn-google:hover { background: #f0f0f0; }
+    .btn-google svg { width: 18px; height: 18px; flex-shrink: 0; }
+    .spin-gate-error {
+      font-size: 0.7rem;
+      color: #e05c5c;
+      margin-top: 0.5rem;
+      min-height: 1rem;
+    }
   </style>
 </head>
 <body>
@@ -1471,7 +1540,6 @@
     <li id="nav-home" class="active"><span onclick="showPage('home')">Home</span></li>
     <li id="nav-bundles"><span onclick="showPage('bundles')">Bundles</span></li>
     <li id="nav-rewards"><span onclick="showPage('rewards')">Rewards</span></li>
-    <li id="nav-loyalty"><span onclick="showPage('loyalty')">Loyalty</span></li>
     <li id="nav-membership"><span onclick="showPage('membership')">Membership</span></li>
   </ul>
 </nav>
@@ -1594,7 +1662,6 @@
           <li onclick="showPage('home')">Home</li>
           <li onclick="showPage('bundles')">Bundles</li>
           <li onclick="showPage('rewards')">Rewards</li>
-          <li onclick="showPage('loyalty')">Loyalty</li>
           <li onclick="showPage('membership')">Membership</li>
         </ul>
       </div>
@@ -1815,7 +1882,6 @@
           <li onclick="showPage('home')">Home</li>
           <li onclick="showPage('bundles')">Bundles</li>
           <li onclick="showPage('rewards')">Rewards</li>
-          <li onclick="showPage('loyalty')">Loyalty</li>
           <li onclick="showPage('membership')">Membership</li>
         </ul>
       </div>
@@ -1856,7 +1922,21 @@
         <div class="wheel-center"></div>
       </div>
       <div class="spin-result" id="rewardsResult"></div>
-      <button class="btn-primary" id="rewardsSpinBtn" onclick="spinWheel('rewardsWheel','rewardsResult','rewardsSpinBtn')">Spin Now</button>
+      <!-- Email Gate for rewards page -->
+      <div id="rewardsGate" class="spin-gate" style="margin-top:1.5rem">
+        <p>Enter your email or sign in with Google for your free spin.</p>
+        <input type="email" id="rewardsEmailInput" class="spin-gate-input" placeholder="your@email.com">
+        <div class="spin-gate-error" id="rewardsGateError"></div>
+        <button class="btn-primary" onclick="submitRewardsEmail()" style="width:100%;max-width:320px;margin:0.5rem auto 0;display:block">Get My Spin</button>
+        <div class="spin-gate-or">or</div>
+        <button class="btn-google" onclick="signInWithGoogle()">
+          <svg viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.35-8.16 2.35-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/><path fill="none" d="M0 0h48v48H0z"/></svg>
+          Continue with Google
+        </button>
+      </div>
+      <div id="rewardsWheelControls" style="display:none">
+        <button class="btn-primary" id="rewardsSpinBtn" onclick="spinWheel('rewardsWheel','rewardsResult','rewardsSpinBtn')">Spin Now</button>
+      </div>
     </div>
   </section>
 
@@ -1895,7 +1975,6 @@
         <ul>
           <li onclick="showPage('home')" style="color:rgba(247,245,241,0.5)">Home</li>
           <li onclick="showPage('bundles')" style="color:rgba(247,245,241,0.5)">Bundles</li>
-          <li onclick="showPage('loyalty')" style="color:rgba(247,245,241,0.5)">Loyalty</li>
           <li onclick="showPage('membership')" style="color:rgba(247,245,241,0.5)">Membership</li>
         </ul>
       </div>
@@ -1914,148 +1993,6 @@
   </footer>
 </div>
 
-<!-- ════════════════════════════════════════
-     LOYALTY PAGE
-════════════════════════════════════════ -->
-<div id="loyalty" class="page">
-
-  <section class="loyalty-hero">
-    <p class="section-label" style="color:var(--blue-dark)">Goodfella Rewards</p>
-    <h1 class="section-title">Earn on <em>everything</em></h1>
-    <p>Every purchase earns points. Every spin wins something. The more you're in, the more you get back.</p>
-  </section>
-
-  <!-- Earn section -->
-  <section class="earn-section">
-    <div class="earn-inner">
-      <p class="section-label">How to Earn</p>
-      <h2 class="section-title">Points on <em>everything</em></h2>
-      <div class="earn-grid">
-        <div class="earn-card">
-          <div class="earn-pts">10 pts</div>
-          <div class="earn-action">Per £1 spent</div>
-          <div class="earn-note">Fella tier</div>
-        </div>
-        <div class="earn-card">
-          <div class="earn-pts">15 pts</div>
-          <div class="earn-action">Per £1 spent</div>
-          <div class="earn-note">Senior Fella tier</div>
-        </div>
-        <div class="earn-card">
-          <div class="earn-pts">20 pts</div>
-          <div class="earn-action">Per £1 spent</div>
-          <div class="earn-note">The Don tier</div>
-        </div>
-        <div class="earn-card">
-          <div class="earn-pts">+100</div>
-          <div class="earn-action">Referral bonus</div>
-          <div class="earn-note">When a friend orders</div>
-        </div>
-        <div class="earn-card">
-          <div class="earn-pts">+50</div>
-          <div class="earn-action">Birthday bonus</div>
-          <div class="earn-note">On your birthday month</div>
-        </div>
-        <div class="earn-card">
-          <div class="earn-pts">+2x</div>
-          <div class="earn-action">Monthly Drop</div>
-          <div class="earn-note">Double points on subscription</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Progress tracker -->
-  <section class="progress-section">
-    <div class="progress-inner">
-      <p class="section-label">Your Path</p>
-      <h2 class="section-title">Climb the <em>ranks</em></h2>
-      <div class="tier-steps">
-        <div class="tier-step active">
-          <div class="tier-dot" style="background:var(--blue);border-color:var(--blue)">🤝</div>
-          <div class="tier-step-name">Fella</div>
-          <div class="tier-step-pts">Free</div>
-        </div>
-        <div class="tier-step">
-          <div class="tier-dot">⭐</div>
-          <div class="tier-step-name">Senior Fella</div>
-          <div class="tier-step-pts">1,000 pts</div>
-        </div>
-        <div class="tier-step">
-          <div class="tier-dot">👑</div>
-          <div class="tier-step-name">The Don</div>
-          <div class="tier-step-pts">3,000 pts</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Redemption store -->
-  <section class="store-section">
-    <div class="store-inner">
-      <p class="section-label">Spend Your Points</p>
-      <h2 class="section-title">The <em>Redemption Store</em></h2>
-      <div class="store-grid">
-        <div class="store-item">
-          <div class="store-item-pts">200<span>points</span></div>
-          <div class="store-item-name">5% Off Next Order</div>
-          <button class="store-item-btn">Redeem</button>
-        </div>
-        <div class="store-item">
-          <div class="store-item-pts">400<span>points</span></div>
-          <div class="store-item-name">10% Off Next Order</div>
-          <button class="store-item-btn">Redeem</button>
-        </div>
-        <div class="store-item">
-          <div class="store-item-pts">500<span>points</span></div>
-          <div class="store-item-name">Free Shipping</div>
-          <button class="store-item-btn">Redeem</button>
-        </div>
-        <div class="store-item">
-          <div class="store-item-pts">750<span>points</span></div>
-          <div class="store-item-name">Free Can of Your Choice</div>
-          <button class="store-item-btn">Redeem</button>
-        </div>
-        <div class="store-item">
-          <div class="store-item-pts">1,000<span>points</span></div>
-          <div class="store-item-name">Free Bundle</div>
-          <button class="store-item-btn">Redeem</button>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <footer>
-    <div class="footer-inner">
-      <div>
-        <div class="footer-brand">The Snus Fellas</div>
-        <p class="footer-tagline">Premium UK nicotine pouches. Seven curated bundles, hand-picked for quality. For adults 18+ only.</p>
-      </div>
-      <div class="footer-col">
-        <h4>Navigate</h4>
-        <ul>
-          <li onclick="showPage('home')">Home</li>
-          <li onclick="showPage('bundles')">Bundles</li>
-          <li onclick="showPage('rewards')">Rewards</li>
-          <li onclick="showPage('membership')">Membership</li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Social</h4>
-        <ul>
-          <li>@thesnusfellas</li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p>© 2025 The Snus Fellas. All rights reserved. Adults 18+ only. UK only.</p>
-      <div class="footer-social">
-        <a href="#">Instagram</a>
-        <a href="#">TikTok</a>
-      </div>
-    </div>
-  </footer>
-</div>
 
 <!-- ════════════════════════════════════════
      MEMBERSHIP PAGE
@@ -2234,7 +2171,6 @@
           <li onclick="showPage('home')" style="color:rgba(247,245,241,0.5)">Home</li>
           <li onclick="showPage('bundles')" style="color:rgba(247,245,241,0.5)">Bundles</li>
           <li onclick="showPage('rewards')" style="color:rgba(247,245,241,0.5)">Rewards</li>
-          <li onclick="showPage('loyalty')" style="color:rgba(247,245,241,0.5)">Loyalty</li>
         </ul>
       </div>
       <div class="footer-col">
@@ -2259,14 +2195,32 @@
 <div class="modal-overlay" id="spinModal">
   <div class="modal-box">
     <h2 class="modal-title">Spin the <em style="color:var(--blue);font-style:italic">Wheel</em></h2>
-    <p class="modal-sub">One spin. Whatever it lands on is yours.</p>
-    <div class="modal-wheel-wrap">
-      <div class="modal-pointer"></div>
-      <canvas id="modalWheel" width="280" height="280"></canvas>
-      <div class="modal-center"></div>
+
+    <!-- Email Gate -->
+    <div id="spinGate" class="spin-gate">
+      <p>Enter your email or sign in with Google for your free spin.</p>
+      <input type="email" id="spinEmailInput" class="spin-gate-input" placeholder="your@email.com">
+      <div class="spin-gate-error" id="spinGateError"></div>
+      <button class="btn-primary" onclick="submitSpinEmail()" style="width:100%;max-width:320px;margin:0.5rem auto 0;display:block">Get My Spin</button>
+      <div class="spin-gate-or">or</div>
+      <button class="btn-google" onclick="signInWithGoogle()">
+        <svg viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.35-8.16 2.35-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/><path fill="none" d="M0 0h48v48H0z"/></svg>
+        Continue with Google
+      </button>
     </div>
-    <div class="modal-result" id="modalResult"></div>
-    <button class="btn-primary" id="modalSpinBtn" onclick="spinWheel('modalWheel','modalResult','modalSpinBtn')">Spin</button>
+
+    <!-- Wheel (hidden until gate passed) -->
+    <div id="spinWheelArea" style="display:none">
+      <p class="modal-sub">One spin. Whatever it lands on is yours.</p>
+      <div class="modal-wheel-wrap">
+        <div class="modal-pointer"></div>
+        <canvas id="modalWheel" width="280" height="280"></canvas>
+        <div class="modal-center"></div>
+      </div>
+      <div class="modal-result" id="modalResult"></div>
+      <button class="btn-primary" id="modalSpinBtn" onclick="spinWheel('modalWheel','modalResult','modalSpinBtn')">Spin</button>
+    </div>
+
     <br>
     <button class="modal-close" onclick="closeSpinModal()">Close</button>
   </div>
@@ -2393,10 +2347,67 @@
     requestAnimationFrame(step);
   }
 
+  // ─── Email Gate ───
+  function isValidEmail(email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  }
+
+  function unlockSpin() {
+    // Modal
+    var gate = document.getElementById('spinGate');
+    var wheelArea = document.getElementById('spinWheelArea');
+    if (gate) gate.style.display = 'none';
+    if (wheelArea) { wheelArea.style.display = 'block'; setTimeout(function(){ drawWheel('modalWheel'); }, 50); }
+    // Rewards page
+    var rGate = document.getElementById('rewardsGate');
+    var rControls = document.getElementById('rewardsWheelControls');
+    if (rGate) rGate.style.display = 'none';
+    if (rControls) rControls.style.display = 'block';
+  }
+
+  function submitSpinEmail() {
+    var input = document.getElementById('spinEmailInput');
+    var error = document.getElementById('spinGateError');
+    var email = input ? input.value.trim() : '';
+    if (!isValidEmail(email)) {
+      if (error) error.textContent = 'Please enter a valid email address.';
+      return;
+    }
+    if (error) error.textContent = '';
+    localStorage.setItem('snusfellas_email', email);
+    unlockSpin();
+  }
+
+  function submitRewardsEmail() {
+    var input = document.getElementById('rewardsEmailInput');
+    var error = document.getElementById('rewardsGateError');
+    var email = input ? input.value.trim() : '';
+    if (!isValidEmail(email)) {
+      if (error) error.textContent = 'Please enter a valid email address.';
+      return;
+    }
+    if (error) error.textContent = '';
+    localStorage.setItem('snusfellas_email', email);
+    unlockSpin();
+  }
+
+  function signInWithGoogle() {
+    // Requires Google OAuth client ID — placeholder redirect
+    alert('Google Sign-In coming soon. Please enter your email for now.');
+  }
+
+  // Check if already signed in
+  function checkExistingEmail() {
+    var saved = localStorage.getItem('snusfellas_email');
+    if (saved) unlockSpin();
+  }
+
   // ─── Modal ───
   function openSpinModal() {
     document.getElementById('spinModal').classList.add('open');
-    setTimeout(function() { drawWheel('modalWheel'); }, 50);
+    checkExistingEmail();
+    var saved = localStorage.getItem('snusfellas_email');
+    if (saved) setTimeout(function() { drawWheel('modalWheel'); }, 50);
   }
 
   function closeSpinModal() {
@@ -2408,9 +2419,14 @@
     if (e.target === this) closeSpinModal();
   });
 
+  // Allow pressing Enter in email inputs
+  document.getElementById('spinEmailInput').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') submitSpinEmail();
+  });
+
   // ─── Init ───
+  checkExistingEmail();
   drawWheel('rewardsWheel');
-  drawWheel('modalWheel');
 </script>
 
 </body>
