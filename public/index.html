@@ -219,11 +219,12 @@
     }
 
     .hero-logo {
-      width: clamp(220px, 40vw, 420px);
-      height: auto;
+      width: clamp(200px, 35vw, 380px);
+      height: clamp(200px, 35vw, 380px);
+      object-fit: cover;
+      border-radius: 50%;
       margin-bottom: 1.5rem;
-      mix-blend-mode: screen;
-      filter: drop-shadow(0 8px 32px rgba(91,196,232,0.25));
+      box-shadow: 0 0 40px rgba(91,196,232,0.2), 0 8px 32px rgba(0,0,0,0.5);
       animation: float 3.5s ease-in-out infinite;
     }
 
