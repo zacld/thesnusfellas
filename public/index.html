@@ -1961,6 +1961,137 @@
       }
     }
 
+    /* ─── For Dons Only button ─── */
+    .btn-dons-only {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.65rem;
+      padding: 0.9rem 2.5rem;
+      background: rgba(247,245,241,0.03);
+      color: rgba(247,245,241,0.38);
+      border: 1px solid rgba(247,245,241,0.1);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 400;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: border-color 0.25s, color 0.25s, background 0.25s;
+    }
+    .btn-dons-only:hover {
+      border-color: rgba(91,196,232,0.4);
+      color: var(--blue);
+      background: rgba(91,196,232,0.05);
+    }
+    .btn-dons-only .lock-icon {
+      font-size: 0.85rem;
+      opacity: 0.6;
+    }
+
+    /* ─── Find Your Strength section ─── */
+    .strength-section {
+      background: var(--black);
+      padding: 9rem 2rem 8rem;
+      border-top: 1px solid rgba(247,245,241,0.05);
+      position: relative;
+      overflow: hidden;
+    }
+    .strength-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 40% at 50% 50%, rgba(91,196,232,0.04) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .strength-inner {
+      max-width: 520px;
+      margin: 0 auto;
+      text-align: center;
+      position: relative;
+    }
+    .strength-header {
+      margin-bottom: 5rem;
+    }
+    .strength-header .section-label {
+      margin-bottom: 0.85rem;
+    }
+    .strength-header h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(2.2rem, 5vw, 3.2rem);
+      line-height: 1.1;
+      color: var(--white);
+    }
+    .strength-header h2 em { font-style: italic; color: var(--blue); }
+
+    .strength-items {
+      display: flex;
+      flex-direction: column;
+    }
+    .strength-item {
+      padding: 3.5rem 1rem;
+      border-bottom: 1px solid rgba(247,245,241,0.06);
+      opacity: 0;
+      transform: translateY(24px) scale(0.99);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+      cursor: default;
+    }
+    .strength-item:last-child { border-bottom: none; }
+    .strength-item.str-visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+    .strength-item-label {
+      font-size: 0.58rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 0.9rem;
+      opacity: 0.7;
+    }
+    .strength-item-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(2.4rem, 7vw, 3.8rem);
+      line-height: 1.05;
+      color: var(--white);
+      margin-bottom: 0.9rem;
+      letter-spacing: -0.01em;
+    }
+    .strength-item-desc {
+      font-size: 0.8rem;
+      color: rgba(247,245,241,0.45);
+      letter-spacing: 0.03em;
+      line-height: 1.75;
+      max-width: 380px;
+      margin: 0 auto;
+    }
+    .strength-cta {
+      margin-top: 5rem;
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.6s ease-out 0.2s, transform 0.6s ease-out 0.2s;
+    }
+    .strength-cta.str-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ─── Dons Only modal ─── */
+    .dons-modal-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--blue);
+      background: rgba(91,196,232,0.08);
+      border: 1px solid rgba(91,196,232,0.2);
+      padding: 0.4rem 1rem;
+      margin-bottom: 1.25rem;
+    }
+
     /* ─── Spin Email Gate ─── */
     .spin-gate {
       text-align: center;
@@ -2112,6 +2243,36 @@
       <p class="shop-cta-sub">We do not do random picks. Different flavours, different strengths, chosen properly. No filler. No weak choices. This is the obvious starting point.</p>
       <button class="btn-shop-big" onclick="showPage('bundles')">Shop Bundles</button>
       <p class="shop-cta-proof" style="margin-top:3rem">Free UK delivery &nbsp;·&nbsp; Adults 18+ only &nbsp;·&nbsp; Chosen properly</p>
+    </div>
+  </section>
+
+  <!-- Find Your Strength -->
+  <section class="strength-section">
+    <div class="strength-inner">
+      <div class="strength-header">
+        <p class="section-label">Find Your Strength</p>
+        <h2>The right pick.<br><em>Every time.</em></h2>
+      </div>
+      <div class="strength-items">
+        <div class="strength-item" data-str-delay="0">
+          <p class="strength-item-label">01 — The Default</p>
+          <h3 class="strength-item-name">House Favourite</h3>
+          <p class="strength-item-desc">The default choice. Proven, balanced, consistent.</p>
+        </div>
+        <div class="strength-item" data-str-delay="200">
+          <p class="strength-item-label">02 — The Hit</p>
+          <h3 class="strength-item-name">High Strength</h3>
+          <p class="strength-item-desc">More intensity. Sharper delivery. Built to hit.</p>
+        </div>
+        <div class="strength-item" data-str-delay="400">
+          <p class="strength-item-label">03 — The Entry</p>
+          <h3 class="strength-item-name">Starter Pick</h3>
+          <p class="strength-item-desc">Simple, clean, reliable. The easiest place to begin.</p>
+        </div>
+      </div>
+      <div class="strength-cta">
+        <button class="btn-primary" onclick="showPage('bundles')">Find Your Bundle</button>
+      </div>
     </div>
   </section>
 
@@ -2726,8 +2887,10 @@
         Sold Out
       </div>
 
-      <button class="btn-primary" onclick="openNotifyModal()">Notify When Available</button>
-      <p style="font-size:0.6rem;letter-spacing:0.12em;color:rgba(247,245,241,0.2);margin-top:1rem;text-transform:uppercase">Be first. No spam. Ever.</p>
+      <button class="btn-dons-only" onclick="showPage('membership')">
+        <span class="lock-icon">🔒</span> For Dons Only
+      </button>
+      <p style="font-size:0.6rem;letter-spacing:0.12em;color:rgba(247,245,241,0.2);margin-top:1rem;text-transform:uppercase">Members exclusive &nbsp;·&nbsp; Join the Don tier</p>
     </div>
 
   </div>
@@ -3054,6 +3217,23 @@
   }, { threshold: 0.15 });
 
   fadeEls.forEach(function(el) { observer.observe(el); });
+
+  // ─── Find Your Strength — scroll-triggered stagger ───
+  var strObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        var delay = parseInt(entry.target.getAttribute('data-str-delay') || '0', 10);
+        setTimeout(function() {
+          entry.target.classList.add('str-visible');
+        }, delay);
+        strObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.strength-item, .strength-cta').forEach(function(el) {
+    strObserver.observe(el);
+  });
 
   // ─── Init ───
   checkExistingEmail();
