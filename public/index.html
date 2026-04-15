@@ -1494,11 +1494,39 @@
       user-select: none;
     }
 
-    .slot-sym.sym-jackpot .sym-icon {
-      color: #5BC4E8;
-      font-size: 2.1rem;
-      font-weight: 400;
+    /* ── Symbol colours ── */
+    .slot-sym.sym-jackpot  .sym-icon { color: #5BC4E8; font-size: 2.1rem; font-weight: 400; }
+    .slot-sym.sym-diamond  .sym-icon { color: #7dd6f0; }
+    .slot-sym.sym-star     .sym-icon { color: #c9a84c; }
+    .slot-sym.sym-fella    .sym-icon { color: rgba(247,245,241,0.95); }
+    .slot-sym.sym-spark    .sym-icon { color: #8ecfd8; }
+
+    /* ── Spin: payline pulses ── */
+    @keyframes payline-pulse {
+      0%, 100% { opacity: 0.25; background: rgba(91,196,232,0.03); }
+      50%       { opacity: 1;    background: rgba(91,196,232,0.08); }
     }
+    .slot-cabinet.spinning .slot-payline {
+      animation: payline-pulse 0.45s ease-in-out infinite;
+    }
+
+    /* ── Win: cabinet glow + symbols flash ── */
+    @keyframes cabinet-win {
+      0%, 100% { box-shadow: none; border-color: rgba(247,245,241,0.08); }
+      30%, 70% { box-shadow: 0 0 48px rgba(91,196,232,0.35); border-color: rgba(91,196,232,0.55); }
+      50%      { box-shadow: 0 0 72px rgba(91,196,232,0.55); border-color: rgba(91,196,232,0.9); }
+    }
+    @keyframes sym-flash {
+      0%, 100% { opacity: 1; }
+      50%      { opacity: 0.25; }
+    }
+    .slot-cabinet.win {
+      animation: cabinet-win 1s ease-in-out 2;
+    }
+    .slot-reel.win-reel .reel-strip {
+      animation: sym-flash 0.35s ease-in-out 4;
+    }
+    .slot-result-text.win em { color: #5BC4E8; font-size: 1.8rem; }
 
     .slot-result-area {
       min-height: 2.4rem;
@@ -2952,100 +2980,6 @@
     </div>
   </section>
 
-  <!-- Comparison table -->
-  <section class="compare-section">
-    <div class="compare-inner">
-      <p class="section-label">Side by Side</p>
-      <h2 class="section-title">Full <em>comparison</em></h2>
-      <table class="compare-table">
-        <thead>
-          <tr>
-            <th></th>
-            <th>Fella</th>
-            <th>Senior Fella</th>
-            <th>Don</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Price</td>
-            <td>Free</td>
-            <td>£25/mo</td>
-            <td>£45/mo</td>
-          </tr>
-          <tr>
-            <td>Monthly delivery</td>
-            <td class="no">—</td>
-            <td>1 bundle</td>
-            <td>10 pots</td>
-          </tr>
-          <tr>
-            <td>Order discount</td>
-            <td class="no">—</td>
-            <td class="yes">✓</td>
-            <td class="yes">✓</td>
-          </tr>
-          <tr>
-            <td>Points per £1</td>
-            <td>10</td>
-            <td>15</td>
-            <td>20</td>
-          </tr>
-          <tr>
-            <td>Spin on login</td>
-            <td class="yes">✓</td>
-            <td class="yes">✓</td>
-            <td class="yes">✓</td>
-          </tr>
-          <tr>
-            <td>Monthly bonus spin</td>
-            <td class="no">—</td>
-            <td class="yes">✓</td>
-            <td class="yes">✓</td>
-          </tr>
-          <tr>
-            <td>Exclusive events</td>
-            <td class="no">—</td>
-            <td class="no">—</td>
-            <td class="yes">✓</td>
-          </tr>
-          <tr>
-            <td>Double referrals</td>
-            <td class="no">—</td>
-            <td class="no">—</td>
-            <td class="yes">✓</td>
-          </tr>
-          <tr>
-            <td>Don Wall</td>
-            <td class="no">—</td>
-            <td class="no">—</td>
-            <td class="yes">✓</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-
-  <!-- Don Wall -->
-  <section class="don-wall">
-    <p class="section-label">Hall of Dons</p>
-    <h2 class="section-title">Don <em>Wall</em></h2>
-    <p>These are the Fellas who made it to the top. Earn 3,000 points, become Don, and your name goes here. Permanently.</p>
-    <div class="don-spots">
-      <div class="don-spot">Open</div>
-      <div class="don-spot">Open</div>
-      <div class="don-spot">Open</div>
-      <div class="don-spot">Open</div>
-      <div class="don-spot">Open</div>
-      <div class="don-spot">Open</div>
-      <div class="don-spot">Open</div>
-      <div class="don-spot">Open</div>
-      <div class="don-spot">Open</div>
-      <div class="don-spot">Open</div>
-    </div>
-    <button class="btn-primary" style="margin-top:2.5rem" onclick="showPage('bundles')">Earn Your Spot</button>
-  </section>
-
   <footer style="background:var(--black);border-top:1px solid rgba(247,245,241,0.06)">
     <div class="footer-inner">
       <div>
@@ -3397,12 +3331,12 @@
 
   // ─── Snus Fellas Slot Machine ───
   var SLOT_SYMS = [
-    { id: 'bar',     icon: 'BAR', cls: '',          prize: null             },
-    { id: 'seven',   icon: '7',   cls: 'sym-jackpot',prize: 'Free Bundle'   },
-    { id: 'diamond', icon: '◆',  cls: '',          prize: 'Free Can'       },
-    { id: 'star',    icon: '★',  cls: '',          prize: '+100 Points'    },
-    { id: 'fella',   icon: '◈',  cls: '',          prize: '10% Off'        },
-    { id: 'spark',   icon: '✦',  cls: '',          prize: '5% Off'         }
+    { id: 'bar',     icon: 'BAR', cls: '',           prize: null           },
+    { id: 'seven',   icon: '7',   cls: 'sym-jackpot', prize: 'Free Bundle' },
+    { id: 'diamond', icon: '◆',  cls: 'sym-diamond', prize: 'Free Can'    },
+    { id: 'star',    icon: '★',  cls: 'sym-star',    prize: '+100 Points' },
+    { id: 'fella',   icon: '◈',  cls: 'sym-fella',   prize: '10% Off'     },
+    { id: 'spark',   icon: '✦',  cls: 'sym-spark',   prize: '5% Off'      }
   ];
   var SLOT_SYM_H   = 80;
   var SLOT_REPEATS = 10;
@@ -3433,10 +3367,17 @@
     if (slotIsSpinning) return;
     slotIsSpinning = true;
 
-    var btn    = document.getElementById('slotPlayBtn');
-    var result = document.getElementById('slotResult');
-    if (btn)    btn.disabled   = true;
+    var btn     = document.getElementById('slotPlayBtn');
+    var result  = document.getElementById('slotResult');
+    var cabinet = document.querySelector('.slot-cabinet');
+    if (btn)    btn.disabled    = true;
     if (result) result.innerHTML = '';
+    if (cabinet) { cabinet.classList.remove('win'); cabinet.classList.add('spinning'); }
+    // clear any previous win-reel classes
+    for (var c = 1; c <= 3; c++) {
+      var sr = document.getElementById('slotStrip' + c);
+      if (sr && sr.parentElement) sr.parentElement.classList.remove('win-reel');
+    }
 
     var N          = SLOT_SYMS.length;
     var stopIdx    = [];
@@ -3472,6 +3413,8 @@
           if (finishCount === 3) {
             slotIsSpinning = false;
             if (btn) btn.disabled = false;
+            var cab = document.querySelector('.slot-cabinet');
+            if (cab) cab.classList.remove('spinning');
             showSlotResult(stopIdx);
           }
         }, dur * 1000 + 80);
@@ -3480,20 +3423,39 @@
   }
 
   function showSlotResult(indices) {
-    var result = document.getElementById('slotResult');
+    var result  = document.getElementById('slotResult');
+    var cabinet = document.querySelector('.slot-cabinet');
     if (!result) return;
 
     var i0 = indices[0], i1 = indices[1], i2 = indices[2];
+    var msg = '', isWin = false;
 
     if (i0 === i1 && i1 === i2) {
       var prize = SLOT_SYMS[i0].prize;
-      result.innerHTML = prize
-        ? 'You won: <em>' + prize + '</em>'
-        : 'No prize. Pull again.';
+      if (prize) { msg = 'You won: <em>' + prize + '</em>'; isWin = true; }
+      else { msg = 'No prize. Pull again.'; }
     } else if (i0 === i1 || i1 === i2 || i0 === i2) {
-      result.innerHTML = 'Close. Pull again.';
+      msg = 'Close. Pull again.';
     } else {
-      result.innerHTML = 'No match. Pull again.';
+      msg = 'No match. Pull again.';
+    }
+
+    result.className = 'slot-result-text' + (isWin ? ' win' : '');
+    result.innerHTML = msg;
+
+    if (isWin && cabinet) {
+      cabinet.classList.add('win');
+      for (var r = 1; r <= 3; r++) {
+        var reel = document.getElementById('slotStrip' + r);
+        if (reel && reel.parentElement) reel.parentElement.classList.add('win-reel');
+      }
+      setTimeout(function() {
+        if (cabinet) cabinet.classList.remove('win');
+        for (var r = 1; r <= 3; r++) {
+          var reel = document.getElementById('slotStrip' + r);
+          if (reel && reel.parentElement) reel.parentElement.classList.remove('win-reel');
+        }
+      }, 2000);
     }
   }
 
