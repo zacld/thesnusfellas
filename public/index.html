@@ -298,14 +298,85 @@
       margin-bottom: 1.25rem;
     }
 
+    /* Logo atmosphere wrapper */
+    .logo-atmosphere {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+    }
+
+    /* Dark halo — sits just behind the logo */
+    .logo-atmosphere::before {
+      content: '';
+      position: absolute;
+      width: 110%;
+      height: 110%;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(13,13,13,0.55) 30%, transparent 72%);
+      animation: float 3.5s ease-in-out infinite;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Soft shadow bloom */
+    .logo-atmosphere::after {
+      content: '';
+      position: absolute;
+      width: 140%;
+      height: 140%;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(30,30,30,0.38) 0%, transparent 68%);
+      filter: blur(28px);
+      animation: float 3.5s ease-in-out infinite;
+      pointer-events: none;
+      z-index: 0;
+    }
+
     .hero-logo {
+      position: relative;
+      z-index: 1;
       width: clamp(200px, 35vw, 380px);
       height: clamp(200px, 35vw, 380px);
       object-fit: cover;
       border-radius: 50%;
-      margin-bottom: 1.5rem;
-      box-shadow: 0 0 40px rgba(91,196,232,0.2), 0 8px 32px rgba(0,0,0,0.5);
+      box-shadow:
+        0 0 60px rgba(0,0,0,0.7),
+        0 0 120px rgba(0,0,0,0.4),
+        0 8px 40px rgba(0,0,0,0.6);
       animation: float 3.5s ease-in-out infinite;
+    }
+
+    /* Ambient mist layers */
+    .logo-mist {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .logo-mist-1 {
+      width: 180%;
+      height: 180%;
+      background: radial-gradient(ellipse at 40% 60%, rgba(8,8,8,0.22) 0%, transparent 65%);
+      filter: blur(18px);
+      animation: mistDrift1 9s ease-in-out infinite;
+    }
+    .logo-mist-2 {
+      width: 160%;
+      height: 160%;
+      background: radial-gradient(ellipse at 60% 35%, rgba(5,5,5,0.18) 0%, transparent 60%);
+      filter: blur(22px);
+      animation: mistDrift2 12s ease-in-out infinite;
+    }
+
+    @keyframes mistDrift1 {
+      0%, 100% { transform: translate(-4%, 3%) scale(1); opacity: 0.7; }
+      50%       { transform: translate(4%, -3%) scale(1.04); opacity: 1; }
+    }
+    @keyframes mistDrift2 {
+      0%, 100% { transform: translate(3%, -5%) scale(1.02); opacity: 0.5; }
+      50%       { transform: translate(-3%, 5%) scale(0.97); opacity: 0.9; }
     }
 
     @keyframes float {
@@ -342,26 +413,64 @@
 
     .hero-scroll {
       position: absolute;
-      bottom: 2.5rem;
+      bottom: -22px;
       left: 50%;
       transform: translateX(-50%);
-      font-size: 0.6rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: rgba(247,245,241,0.3);
+      z-index: 20;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0;
+      cursor: pointer;
     }
 
-    .hero-scroll::after {
-      content: '';
-      width: 1px;
-      height: 40px;
-      background: rgba(247,245,241,0.2);
-      animation: scrollPulse 2s ease-in-out infinite;
+    .hero-scroll-label {
+      font-size: 0.55rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: rgba(247,245,241,0.35);
+      margin-bottom: 0.4rem;
     }
+
+    .hero-scroll-arrow {
+      width: 44px;
+      height: 44px;
+      background: var(--blue);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      box-shadow: 0 4px 20px rgba(91,196,232,0.35);
+      animation: bounceArrow 2s ease-in-out infinite;
+    }
+
+    .hero-scroll-arrow svg {
+      width: 18px;
+      height: 18px;
+      stroke: var(--black);
+      stroke-width: 2.5;
+      fill: none;
+    }
+
+    @keyframes bounceArrow {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(6px); }
+    }
+
+    /* Fade-in on scroll */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .fade-up.delay-1 { transition-delay: 0.1s; }
+    .fade-up.delay-2 { transition-delay: 0.22s; }
+    .fade-up.delay-3 { transition-delay: 0.34s; }
+    .fade-up.delay-4 { transition-delay: 0.46s; }
 
     @keyframes scrollPulse {
       0%, 100% { opacity: 0.2; }
@@ -468,6 +577,119 @@
       font-size: 0.78rem;
       line-height: 1.7;
       color: rgba(247,245,241,0.55);
+    }
+
+    /* Shop Bundles Dark CTA */
+    .shop-cta {
+      background: var(--black);
+      padding: 8rem 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      border-top: 1px solid rgba(91,196,232,0.08);
+    }
+
+    .shop-cta::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(91,196,232,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .shop-cta-inner { position: relative; max-width: 720px; margin: 0 auto; }
+
+    .shop-cta-urgency {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 1.5rem;
+      background: rgba(91,196,232,0.08);
+      border: 1px solid rgba(91,196,232,0.2);
+      padding: 0.4rem 1rem;
+    }
+
+    .shop-cta-urgency-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--blue);
+      animation: pulse-dot 1.5s ease-in-out infinite;
+      flex-shrink: 0;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.7); }
+    }
+
+    .shop-cta h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(3rem, 8vw, 5.5rem);
+      line-height: 1.05;
+      color: var(--white);
+      margin-bottom: 1.25rem;
+    }
+
+    .shop-cta h2 em { font-style: italic; color: var(--blue); }
+
+    .shop-cta-sub {
+      font-size: 0.82rem;
+      letter-spacing: 0.04em;
+      color: rgba(247,245,241,0.5);
+      max-width: 480px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.8;
+    }
+
+    .shop-cta-proof {
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(247,245,241,0.3);
+      margin-top: 1.5rem;
+    }
+
+    .shop-cta-proof strong { color: var(--blue); }
+
+    .btn-shop-big {
+      display: inline-block;
+      padding: 1.1rem 3.5rem;
+      background: var(--blue);
+      color: var(--black);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.8rem;
+      font-weight: 400;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      position: relative;
+    }
+
+    .btn-shop-big:hover {
+      background: #fff;
+      transform: translateY(-2px);
+    }
+
+    .btn-shop-big::after {
+      content: 'Most people grab 2+';
+      display: block;
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      color: rgba(13,13,13,0.55);
+      margin-top: 0.3rem;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      white-space: nowrap;
+      bottom: -1.4rem;
     }
 
     /* Goodfella CTA */
@@ -1626,45 +1848,117 @@
       color: var(--black);
     }
 
-    /* ─── Can Page ─── */
+    /* ─── Signature / Can Page ─── */
     #can { background: var(--black); }
 
-    .can-page-inner {
+    .can-page-premium {
       min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding-top: 5rem;
+    }
+
+    .sig-hero-img-wrap {
+      position: relative;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .sig-hero-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      filter: brightness(0.85);
+      animation: float 5s ease-in-out infinite;
+    }
+
+    .sig-hero-vignette {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center, transparent 30%, rgba(13,13,13,0.6) 80%, rgba(13,13,13,0.95) 100%);
+    }
+
+    .sig-hero-badge {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(13,13,13,0.85);
+      border: 1px solid rgba(247,245,241,0.15);
+      color: rgba(247,245,241,0.7);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      padding: 0.5rem 1.25rem;
+      backdrop-filter: blur(8px);
+      white-space: nowrap;
+    }
+
+    .sig-hero-content {
+      padding: 4rem 4rem 4rem 3.5rem;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 6rem 2rem 4rem;
-      text-align: center;
+      align-items: flex-start;
     }
 
-    .can-page-img {
-      width: min(600px, 90vw);
-      height: min(600px, 90vw);
-      object-fit: cover;
-      border-radius: 50%;
-      box-shadow: 0 0 80px rgba(91,196,232,0.15), 0 20px 60px rgba(0,0,0,0.7);
-      margin-bottom: 3rem;
-      animation: float 4s ease-in-out infinite;
-    }
-
-    .can-page-inner h1 {
+    .sig-hero-title {
       font-family: 'Cormorant Garamond', serif;
       font-weight: 300;
-      font-size: clamp(2.5rem, 6vw, 4.5rem);
-      margin-bottom: 1rem;
+      font-size: clamp(3rem, 5vw, 5rem);
+      line-height: 1.05;
+      color: var(--white);
+      margin-bottom: 1.25rem;
     }
 
-    .can-page-inner h1 em { font-style: italic; color: var(--blue); }
+    .sig-hero-title em { font-style: italic; color: var(--blue); }
 
-    .can-page-inner p {
+    .sig-hero-desc {
       font-size: 0.82rem;
-      letter-spacing: 0.05em;
-      color: rgba(247,245,241,0.55);
-      max-width: 480px;
-      line-height: 1.8;
+      letter-spacing: 0.03em;
+      color: rgba(247,245,241,0.45);
+      max-width: 360px;
+      line-height: 1.85;
       margin-bottom: 2rem;
+    }
+
+    .sig-status {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(247,245,241,0.35);
+    }
+
+    .sig-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #c0392b;
+      box-shadow: 0 0 8px #c0392b;
+      flex-shrink: 0;
+    }
+
+    .can-page-inner {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      .can-page-premium {
+        grid-template-columns: 1fr;
+        padding-top: 4.5rem;
+      }
+      .sig-hero-img-wrap {
+        height: 55vw;
+        min-height: 280px;
+      }
+      .sig-hero-content {
+        padding: 2.5rem 1.75rem 3rem;
+      }
     }
 
     /* ─── Spin Email Gate ─── */
@@ -1746,7 +2040,7 @@
     <li id="nav-home" class="active"><span onclick="showPage('home')">Home</span></li>
     <li id="nav-bundles"><span onclick="showPage('bundles')">Bundles</span></li>
     <li id="nav-rewards"><span onclick="showPage('rewards')">Rewards</span></li>
-    <li id="nav-can"><span onclick="showPage('can')">Our Can</span></li>
+    <li id="nav-can"><span onclick="showPage('can')">Our Signature</span></li>
     <li id="nav-membership"><span onclick="showPage('membership')">Membership</span></li>
   </ul>
 </nav>
@@ -1758,69 +2052,70 @@
 
   <!-- Hero -->
   <section class="home-hero">
-    <img src="/logo.png" alt="The Snus Fellas — Premium UK Nicotine Pouch Bundles" class="hero-logo">
+    <div class="logo-atmosphere">
+      <div class="logo-mist logo-mist-1"></div>
+      <div class="logo-mist logo-mist-2"></div>
+      <img src="/logo.png" alt="The Snus Fellas — Premium UK Nicotine Pouch Bundles" class="hero-logo">
+    </div>
     <h1 class="hero-eyebrow">The Snus Fellas — Premium UK Nicotine Pouches</h1>
     <p class="hero-tagline">Find Your Strength</p>
     <div class="hero-actions">
       <button class="btn-primary" onclick="showPage('bundles')">Shop Bundles</button>
       <button class="btn-outline" onclick="showPage('membership')">Join the Fellas</button>
     </div>
-    <div class="hero-scroll" style="z-index:10">Scroll</div>
-  </section>
-
-  <!-- Story -->
-  <section class="story-section">
-    <div class="story-inner">
-      <div>
-        <p class="section-label">The Story</p>
-        <h2 class="section-title">Built for people who<br><em>know their pouches</em></h2>
-        <div class="divider"></div>
-        <p>The Snus Fellas sources the best nicotine pouches from across Scandinavia and beyond — testing, selecting, and bundling them so you get the full picture in one order.</p>
-        <p>Seven distinct bundles. Every flavour profile. Every strength. All hand-picked, all quality-checked, delivered straight to your door.</p>
-      </div>
-      <div class="story-stats">
-        <div class="stat-item">
-          <div class="stat-number">7</div>
-          <div class="stat-label">Distinct bundles</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-number">20+</div>
-          <div class="stat-label">Brands tested and curated</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-number">UK</div>
-          <div class="stat-label">Delivered nationwide</div>
-        </div>
+    <div class="hero-scroll" onclick="document.querySelector('.pillars-section').scrollIntoView({behavior:'smooth'})">
+      <span class="hero-scroll-label">Scroll</span>
+      <div class="hero-scroll-arrow">
+        <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
       </div>
     </div>
   </section>
 
-  <!-- Pillars -->
+
+  <!-- For Those on the Inside -->
   <section class="pillars-section">
     <div class="pillars-header">
-      <p class="section-label">Why the Fellas</p>
-      <h2 class="section-title">Built <em>different</em></h2>
+      <p class="section-label fade-up">Why the Fellas</p>
+      <h2 class="section-title fade-up delay-1">For those <em>on the inside</em></h2>
+      <p class="fade-up delay-2" style="font-size:0.82rem;color:rgba(247,245,241,0.45);max-width:420px;margin:1rem auto 0;line-height:1.7;letter-spacing:0.03em">Quiet luxury. Heavy character.</p>
     </div>
     <div class="pillars-grid">
-      <div class="pillar-card">
+      <div class="pillar-card fade-up delay-1">
         <div class="pillar-icon">◈</div>
-        <h3 class="pillar-title"><em>Curated</em> selections</h3>
-        <p class="pillar-body">Every bundle is put together with purpose. Not random, not filler — just the right combination of flavours and strengths to show you what good pouch culture actually looks like.</p>
+        <h3 class="pillar-title">No dead weight</h3>
+        <p class="pillar-body">Every bundle earns its place. No filler. No weak choices. Just proper selections, put together with intent.</p>
+        <button class="btn-outline" onclick="showPage('bundles')" style="margin-top:1.25rem;font-size:0.65rem;padding:0.6rem 1.25rem">Find Your Bundle</button>
       </div>
-      <div class="pillar-card">
+      <div class="pillar-card fade-up delay-2">
         <div class="pillar-icon">◇</div>
-        <h3 class="pillar-title">Something for <em>everyone</em></h3>
-        <p class="pillar-body">Mint, fruit, classic, extreme — every palate is covered. Whether you're new to pouches or know exactly what you want, there's a bundle built for you.</p>
+        <h3 class="pillar-title">Every strength.<br><em>Every flavour.</em></h3>
+        <p class="pillar-body">Mint, fruit, classic, extreme. Every palate, every strength. All hand-selected. There is a bundle made for you.</p>
+        <button class="btn-outline" onclick="showPage('bundles')" style="margin-top:1.25rem;font-size:0.65rem;padding:0.6rem 1.25rem">Shop Bundles</button>
       </div>
-      <div class="pillar-card">
+      <div class="pillar-card fade-up delay-3">
         <div class="pillar-icon">◆</div>
-        <h3 class="pillar-title">Earn rewards with <em>the Snus Fellas</em></h3>
-        <p class="pillar-body">Earn points on every order. Spin the wheel. Get discount codes, free cans, and priority access to new drops. The Goodfella Rewards programme rewards loyalty properly.</p>
+        <h3 class="pillar-title">Earn as you go</h3>
+        <p class="pillar-body">Points on every order. Spin the wheel. Codes, free cans, early access. The more you are in, the more you get back.</p>
+        <button class="btn-outline" onclick="showPage('rewards')" style="margin-top:1.25rem;font-size:0.65rem;padding:0.6rem 1.25rem">Start Earning</button>
       </div>
     </div>
   </section>
 
-  <!-- Our Can Video Section -->
+  <!-- Shop Bundles Dark CTA -->
+  <section class="shop-cta">
+    <div class="shop-cta-inner">
+      <div class="shop-cta-urgency">
+        <span class="shop-cta-urgency-dot"></span>
+        Bundles selling fast this week
+      </div>
+      <h2>The House <em>Favourite</em></h2>
+      <p class="shop-cta-sub">We do not do random picks. Different flavours, different strengths, chosen properly. No filler. No weak choices. This is the obvious starting point.</p>
+      <button class="btn-shop-big" onclick="showPage('bundles')">Shop Bundles</button>
+      <p class="shop-cta-proof" style="margin-top:3rem">Free UK delivery &nbsp;·&nbsp; Adults 18+ only &nbsp;·&nbsp; Chosen properly</p>
+    </div>
+  </section>
+
+  <!-- Our Signature Video Section -->
   <section class="our-can-section" onclick="showPage('can')">
     <video autoplay muted loop playsinline>
       <source src="/can.mp4" type="video/mp4">
@@ -1828,18 +2123,10 @@
     <div class="our-can-overlay"></div>
     <div class="our-can-content">
       <p class="section-label">The Snus Fellas</p>
-      <h2>Our <em>Own Can</em></h2>
-      <p class="sub">Handcrafted. Premium. Ours.</p>
+      <h2>Our <em>Signature</em></h2>
+      <p class="sub">Our Signature.</p>
     </div>
-    <button class="our-can-btn" onclick="event.stopPropagation();showPage('can')">Discover the Can</button>
-  </section>
-
-  <!-- Goodfella Rewards CTA -->
-  <section class="goodfella-cta">
-    <p class="section-label" style="color:rgba(13,13,13,0.5)">Goodfella Rewards</p>
-    <h2 class="section-title">Join. <em>Earn</em>. Win.</h2>
-    <p>Sign up for free. Earn points on every order. Spin the wheel on login. The more you buy, the more you get back.</p>
-    <button class="btn-dark" onclick="showPage('rewards')">Start Earning</button>
+    <button class="our-can-btn" onclick="event.stopPropagation();showPage('can')">View Our Signature</button>
   </section>
 
   <!-- Monthly Drop -->
@@ -1864,11 +2151,12 @@
     </div>
   </section>
 
-  <!-- CTA Strip -->
-  <section class="home-cta-strip">
-    <p class="section-label">Ready?</p>
-    <h2 class="section-title" style="color:var(--white);margin-bottom:2rem">Pick your <em>bundle</em></h2>
-    <button class="btn-primary" onclick="showPage('bundles')">Shop All Bundles</button>
+  <!-- Goodfella Rewards CTA -->
+  <section class="goodfella-cta">
+    <p class="section-label" style="color:rgba(13,13,13,0.5)">Goodfella Rewards</p>
+    <h2 class="section-title">Join. <em>Earn</em>. Win.</h2>
+    <p>Sign up for free. Earn points on every order. Spin the wheel on login. The more you buy, the more you get back.</p>
+    <button class="btn-dark" onclick="showPage('rewards')">Start Earning</button>
   </section>
 
   <footer>
@@ -1919,12 +2207,12 @@
 
   <div class="bundles-grid">
 
-    <!-- The Traditional One -->
+    <!-- Traditional -->
     <div class="bundle-card" style="background:var(--trad-bg);border-left:3px solid var(--trad-accent)">
       <div>
         <span class="bundle-tag" style="background:var(--trad-accent);color:#fff;">Classic</span>
       </div>
-      <h2 class="bundle-name" style="color:var(--black)">The Traditional One</h2>
+      <h2 class="bundle-name" style="color:var(--black)">Traditional</h2>
       <p class="bundle-desc" style="color:#555">The classics. If you know, you know — and if you don't, this is where you start.</p>
       <ul class="bundle-contents">
         <li style="color:#555">Ettan Original Portion</li>
@@ -1937,12 +2225,12 @@
       </div>
     </div>
 
-    <!-- The Swedish One -->
+    <!-- Swedish -->
     <div class="bundle-card" style="background:var(--swedish-bg);border-left:3px solid var(--swedish-accent)">
       <div>
         <span class="bundle-tag" style="background:var(--swedish-accent);color:#fff;">Swedish</span>
       </div>
-      <h2 class="bundle-name" style="color:var(--black)">The Swedish One</h2>
+      <h2 class="bundle-name" style="color:var(--black)">Swedish</h2>
       <p class="bundle-desc" style="color:#555">Straight from Sweden. Clean, considered, and worth every penny.</p>
       <ul class="bundle-contents">
         <li style="color:#555">Lundgrens Månskära</li>
@@ -1955,12 +2243,12 @@
       </div>
     </div>
 
-    <!-- The Norway One -->
+    <!-- Norway -->
     <div class="bundle-card" style="background:var(--norway-bg);border-left:3px solid var(--norway-accent)">
       <div>
         <span class="bundle-tag" style="background:var(--norway-accent);color:#fff;">Norway</span>
       </div>
-      <h2 class="bundle-name" style="color:var(--black)">The Norway One</h2>
+      <h2 class="bundle-name" style="color:var(--black)">Norway</h2>
       <p class="bundle-desc" style="color:#555">Norwegian heritage. Different character. Worth exploring if you know your Scandinavian pouches.</p>
       <ul class="bundle-contents">
         <li style="color:#555">General Classic Portion</li>
@@ -1973,12 +2261,12 @@
       </div>
     </div>
 
-    <!-- The Fruity One -->
+    <!-- Fruity -->
     <div class="bundle-card" style="background:var(--fruity-bg);border-left:3px solid var(--fruity-accent)">
       <div>
         <span class="bundle-tag" style="background:var(--fruity-accent);color:#fff;">Fruity</span>
       </div>
-      <h2 class="bundle-name" style="color:var(--black)">The Fruity One</h2>
+      <h2 class="bundle-name" style="color:var(--black)">Fruity</h2>
       <p class="bundle-desc" style="color:#555">Five flavours. Zero apologies. If you like fruit, this bundle doesn't hold back.</p>
       <ul class="bundle-contents">
         <li style="color:#555">Berry</li>
@@ -1993,13 +2281,13 @@
       </div>
     </div>
 
-    <!-- The ZYN One -->
+    <!-- ZYN -->
     <div class="bundle-card" style="background:var(--zyn-bg);border-left:3px solid var(--zyn-accent)">
       <div>
         <span class="bundle-tag" style="background:var(--zyn-accent);color:#fff;">ZYN</span>
       </div>
-      <h2 class="bundle-name" style="color:var(--black)">The ZYN One</h2>
-      <p class="bundle-desc" style="color:#555">Everything ZYN in one box. Five variants. The full picture.</p>
+      <h2 class="bundle-name" style="color:var(--black)">ZYN</h2>
+      <p class="bundle-desc" style="color:#555">Five ZYN variants. Every strength, every flavour. Chosen properly.</p>
       <ul class="bundle-contents">
         <li style="color:#555">ZYN Mint</li>
         <li style="color:#555">ZYN Fruit</li>
@@ -2013,13 +2301,13 @@
       </div>
     </div>
 
-    <!-- The VELO One -->
+    <!-- VELO -->
     <div class="bundle-card" style="background:var(--velo-bg);border-left:3px solid var(--velo-accent)">
       <div>
         <span class="bundle-tag" style="background:var(--velo-accent);color:#fff;">VELO</span>
       </div>
-      <h2 class="bundle-name" style="color:var(--black)">The VELO One</h2>
-      <p class="bundle-desc" style="color:#555">VELO's range is underrated. Five variants, including their best flavours. Try them all at once.</p>
+      <h2 class="bundle-name" style="color:var(--black)">VELO</h2>
+      <p class="bundle-desc" style="color:#555">Five VELO variants. Their best. Properly selected.</p>
       <ul class="bundle-contents">
         <li style="color:#555">VELO Mint</li>
         <li style="color:#555">VELO Mango Ice</li>
@@ -2264,7 +2552,7 @@
         <button class="btn-primary" onclick="showPage('bundles')">Start Earning</button>
       </div>
 
-      <!-- The Don -->
+      <!-- Don -->
       <div class="tier-card">
         <div class="tier-emoji">👑</div>
         <h2 class="tier-name">The <em>Don</em></h2>
@@ -2278,7 +2566,7 @@
           <li>Direct WhatsApp line</li>
         </ul>
         <div class="tier-pts-rate">£9.99<span>/month</span></div>
-        <button class="btn-outline" onclick="showPage('bundles')">Chase The Don</button>
+        <button class="btn-outline" onclick="showPage('bundles')">Chase Don</button>
       </div>
 
     </div>
@@ -2295,7 +2583,7 @@
             <th></th>
             <th>Fella</th>
             <th>Senior Fella</th>
-            <th>The Don</th>
+            <th>Don</th>
           </tr>
         </thead>
         <tbody>
@@ -2367,8 +2655,8 @@
   <!-- Don Wall -->
   <section class="don-wall">
     <p class="section-label">Hall of Dons</p>
-    <h2 class="section-title">The Don <em>Wall</em></h2>
-    <p>These are the Fellas who made it to the top. Earn 3,000 points, become The Don, and your name goes here. Permanently.</p>
+    <h2 class="section-title">Don <em>Wall</em></h2>
+    <p>These are the Fellas who made it to the top. Earn 3,000 points, become Don, and your name goes here. Permanently.</p>
     <div class="don-spots">
       <div class="don-spot">Open</div>
       <div class="don-spot">Open</div>
@@ -2414,14 +2702,34 @@
 </div>
 
 <!-- ════════════════════════════════════════
-     OUR CAN PAGE
+     OUR SIGNATURE PAGE
 ════════════════════════════════════════ -->
 <div id="can" class="page">
-  <div class="can-page-inner">
-    <img src="/can.jpg" alt="The Snus Fellas — Our Own Can" class="can-page-img">
-    <h1>The Snus Fellas <em>Can</em></h1>
-    <p>Our very own. Hand-picked pouches, sealed in the Snus Fellas can. This is what it means to be part of the family.</p>
-    <button class="btn-primary" onclick="showPage('bundles')">Shop the Bundles</button>
+  <div class="can-page-premium">
+
+    <!-- Single hero image -->
+    <div class="sig-hero-img-wrap">
+      <img src="/Snusfellas container with water droplets.png" alt="Zero Ice by The Snus Fellas" class="sig-hero-img">
+      <div class="sig-hero-vignette"></div>
+      <div class="sig-hero-badge">Sold Out</div>
+    </div>
+
+    <!-- Content -->
+    <div class="sig-hero-content">
+      <p class="section-label" style="color:var(--blue);margin-bottom:0.5rem">The Snus Fellas</p>
+      <p style="font-size:0.6rem;letter-spacing:0.25em;text-transform:uppercase;color:rgba(247,245,241,0.3);margin-bottom:1.25rem">Peppermint &nbsp;|&nbsp; 14mg</p>
+      <h1 class="sig-hero-title">Zero <em>Ice</em></h1>
+      <p class="sig-hero-desc">Built for pure cold. A sharp peppermint hit lands instantly, followed by a smooth, controlled chill that lingers. No sweetness. No distractions. A clean, consistent experience from start to finish.</p>
+
+      <div class="sig-status" style="margin-bottom:2rem">
+        <span class="sig-dot"></span>
+        Sold Out
+      </div>
+
+      <button class="btn-primary" onclick="openNotifyModal()">Notify When Available</button>
+      <p style="font-size:0.6rem;letter-spacing:0.12em;color:rgba(247,245,241,0.2);margin-top:1rem;text-transform:uppercase">Be first. No spam. Ever.</p>
+    </div>
+
   </div>
   <footer>
     <div class="footer-inner">
@@ -2435,7 +2743,7 @@
           <li onclick="showPage('home')">Home</li>
           <li onclick="showPage('bundles')">Bundles</li>
           <li onclick="showPage('rewards')">Rewards</li>
-          <li onclick="showPage('can')">Our Can</li>
+          <li onclick="showPage('can')">Our Signature</li>
           <li onclick="showPage('membership')">Membership</li>
         </ul>
       </div>
@@ -2444,6 +2752,35 @@
       <p>© 2025 The Snus Fellas. Adults 18+ only. UK only.</p>
     </div>
   </footer>
+</div>
+
+<!-- ─── Notify Modal ─── -->
+<div class="modal-overlay" id="notifyModal">
+  <div class="modal-box">
+    <h2 class="modal-title">Get <em style="color:var(--blue);font-style:italic">Notified</em></h2>
+    <p class="modal-sub">Create an account and we'll let you know the moment our Signature can drops.</p>
+
+    <div id="notifyForm">
+      <input type="text" id="notifyName" class="spin-gate-input" placeholder="Your name" style="margin-bottom:0.6rem">
+      <input type="email" id="notifyEmail" class="spin-gate-input" placeholder="your@email.com" style="margin-bottom:0.6rem">
+      <input type="password" id="notifyPassword" class="spin-gate-input" placeholder="Create a password" style="margin-bottom:0.5rem">
+      <div class="spin-gate-error" id="notifyError"></div>
+      <button class="btn-primary" onclick="submitNotify()" style="width:100%;margin-top:0.5rem">Create Account & Notify Me</button>
+      <div class="spin-gate-or">or</div>
+      <button class="btn-google" onclick="signInWithGoogle()">
+        <svg viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.35-8.16 2.35-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/><path fill="none" d="M0 0h48v48H0z"/></svg>
+        Continue with Google
+      </button>
+    </div>
+
+    <div id="notifySuccess" style="display:none;text-align:center;padding:1rem 0">
+      <div style="font-size:2rem;margin-bottom:1rem">✓</div>
+      <p style="color:rgba(247,245,241,0.8);font-size:0.85rem">You're on the list. We'll hit you up the moment it drops.</p>
+    </div>
+
+    <br>
+    <button class="modal-close" onclick="closeNotifyModal()">Close</button>
+  </div>
 </div>
 
 <!-- ─── Floating Spin FAB ─── -->
@@ -2682,9 +3019,79 @@
     if (e.key === 'Enter') submitSpinEmail();
   });
 
+  // ─── Scroll Fade-up Animations ───
+  var fadeEls = document.querySelectorAll('.fade-up');
+  var countersDone = false;
+
+  function animateCounter(el) {
+    var target = parseInt(el.getAttribute('data-count'));
+    if (!target) return;
+    var duration = 1400;
+    var start = null;
+    function step(ts) {
+      if (!start) start = ts;
+      var progress = Math.min((ts - start) / duration, 1);
+      var eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = Math.floor(eased * target) + (progress === 1 && el.closest('.stat-item').querySelector('.stat-label').textContent.includes('tested') ? '+' : '');
+      if (progress < 1) requestAnimationFrame(step);
+      else el.textContent = target + (el.closest('.stat-item').querySelector('.stat-label').textContent.includes('tested') ? '+' : '');
+    }
+    requestAnimationFrame(step);
+  }
+
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        // Trigger counters when stats section visible
+        if (!countersDone && entry.target.closest && entry.target.closest('.story-section')) {
+          countersDone = true;
+          document.querySelectorAll('[data-count]').forEach(animateCounter);
+        }
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  fadeEls.forEach(function(el) { observer.observe(el); });
+
   // ─── Init ───
   checkExistingEmail();
   drawWheel('rewardsWheel');
+
+  // ─── Notify Modal ───
+  function openNotifyModal() {
+    document.getElementById('notifyModal').classList.add('open');
+    document.getElementById('notifyForm').style.display = 'block';
+    document.getElementById('notifySuccess').style.display = 'none';
+    document.getElementById('notifyError').textContent = '';
+  }
+
+  function closeNotifyModal() {
+    document.getElementById('notifyModal').classList.remove('open');
+  }
+
+  function submitNotify() {
+    var name = document.getElementById('notifyName').value.trim();
+    var email = document.getElementById('notifyEmail').value.trim();
+    var password = document.getElementById('notifyPassword').value;
+    var error = document.getElementById('notifyError');
+
+    if (!name) { error.textContent = 'Please enter your name.'; return; }
+    if (!isValidEmail(email)) { error.textContent = 'Please enter a valid email address.'; return; }
+    if (password.length < 6) { error.textContent = 'Password must be at least 6 characters.'; return; }
+
+    error.textContent = '';
+    localStorage.setItem('snusfellas_email', email);
+    localStorage.setItem('snusfellas_name', name);
+
+    document.getElementById('notifyForm').style.display = 'none';
+    document.getElementById('notifySuccess').style.display = 'block';
+  }
+
+  document.getElementById('notifyModal').addEventListener('click', function(e) {
+    if (e.target === this) closeNotifyModal();
+  });
 </script>
 
 </body>
