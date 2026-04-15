@@ -1365,262 +1365,119 @@
       margin: 0 auto 2.5rem;
     }
 
-    /* Slot — logged in */
-    .mem-slot-section {
-      padding: 8rem 2rem 6rem;
-      text-align: center;
+    /* Vault — logged in */
+    .mem-vault-section {
+      padding: 7rem 2rem 6rem;
       background: var(--black);
       position: relative;
     }
-    .mem-slot-section::before {
+    .mem-vault-section::before {
       content: '';
       position: absolute;
       inset: 0;
-      background: radial-gradient(ellipse 70% 50% at 50% 35%, rgba(91,196,232,0.07) 0%, transparent 70%);
+      background: radial-gradient(ellipse 70% 45% at 50% 30%, rgba(91,196,232,0.05) 0%, transparent 70%);
       pointer-events: none;
     }
-    .mem-slot-inner { position: relative; max-width: 480px; margin: 0 auto; }
-    .mem-slot-headline {
+    .mem-vault-inner {
+      position: relative;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+    .mem-vault-header {
+      text-align: center;
+      margin-bottom: 3.5rem;
+    }
+    .mem-vault-headline {
       font-family: 'Cormorant Garamond', serif;
       font-weight: 300;
-      font-size: clamp(3rem, 8vw, 5rem);
+      font-size: clamp(2.8rem, 7vw, 4.5rem);
       line-height: 1.05;
       color: var(--white);
-      margin-bottom: 0.75rem;
+      margin-bottom: 1rem;
     }
-    .mem-slot-headline em { font-style: italic; color: var(--blue); }
-    .mem-slot-sub {
+    .mem-vault-headline em { font-style: italic; color: var(--blue); }
+    .mem-vault-sub {
       font-size: 0.7rem;
-      letter-spacing: 0.18em;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
-      color: rgba(247,245,241,0.38);
-      margin-bottom: 3rem;
+      color: rgba(247,245,241,0.35);
     }
 
-    /* ─── The Don's Machine ─── */
-    .slot-machine {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 2rem;
+    .vault-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2px;
+    }
+    @media (max-width: 560px) {
+      .vault-grid { grid-template-columns: 1fr; }
+    }
+    .vault-perk {
+      background: #0e0e0e;
+      border: 1px solid rgba(247,245,241,0.05);
+      padding: 2rem 1.75rem;
       position: relative;
+      overflow: hidden;
     }
-
-    .slot-machine::after {
-      content: '';
-      position: absolute;
-      bottom: 5.5rem;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 180px;
-      height: 24px;
-      background: radial-gradient(ellipse, rgba(91,196,232,0.18) 0%, transparent 70%);
-      filter: blur(18px);
-      pointer-events: none;
-    }
-
-    .slot-cabinet {
-      background: linear-gradient(180deg, #121212 0%, #080808 100%);
-      border: 1px solid rgba(200,200,210,0.13);
-      box-shadow:
-        inset 0 0 0 1px rgba(255,255,255,0.03),
-        0 2px 4px rgba(0,0,0,0.9),
-        0 24px 64px rgba(0,0,0,0.55),
-        0 0 80px rgba(91,196,232,0.04);
-      padding: 1.25rem 1.5rem 1.75rem;
-      position: relative;
-      display: inline-block;
-    }
-
-    /* chrome top gleam */
-    .slot-cabinet::before {
+    .vault-perk::before {
       content: '';
       position: absolute;
       top: 0; left: 0; right: 0;
       height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(220,230,240,0.35), transparent);
+      background: linear-gradient(90deg, transparent, rgba(91,196,232,0.2), transparent);
     }
-
-    /* soft bottom mist */
-    .slot-cabinet::after {
-      content: '';
-      position: absolute;
-      bottom: -12px; left: 50%;
-      transform: translateX(-50%);
-      width: 70%;
-      height: 12px;
-      background: rgba(91,196,232,0.08);
-      filter: blur(10px);
-      pointer-events: none;
-    }
-
-    .machine-nameplate {
+    .vault-perk-label {
       font-family: 'DM Mono', monospace;
-      font-size: 0.52rem;
-      letter-spacing: 0.38em;
-      text-transform: uppercase;
-      color: rgba(247,245,241,0.28);
-      text-align: center;
-      padding-bottom: 1.1rem;
-      margin-bottom: 1.1rem;
-      border-bottom: 1px solid rgba(247,245,241,0.05);
-    }
-
-    .slot-window {
-      display: flex;
-      gap: 4px;
-      position: relative;
-      height: 240px;
-    }
-
-    /* top/bottom fade — symbols blur off above and below payline */
-    .slot-window::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(
-        to bottom,
-        rgba(13,13,13,0.88) 0%,
-        transparent 30%,
-        transparent 70%,
-        rgba(13,13,13,0.88) 100%
-      );
-      z-index: 3;
-      pointer-events: none;
-    }
-
-    /* payline highlight */
-    .slot-payline {
-      position: absolute;
-      top: 80px;
-      left: -1.5rem;
-      right: -1.5rem;
-      height: 80px;
-      border-top: 1px solid rgba(91,196,232,0.25);
-      border-bottom: 1px solid rgba(91,196,232,0.25);
-      background: rgba(91,196,232,0.03);
-      pointer-events: none;
-      z-index: 2;
-    }
-
-    .slot-reel {
-      width: 80px;
-      height: 240px;
-      overflow: hidden;
-      background: #080808;
-      border: 1px solid rgba(247,245,241,0.05);
-      position: relative;
-      z-index: 1;
-    }
-
-    .reel-strip {
-      display: flex;
-      flex-direction: column;
-      will-change: transform;
-    }
-
-    .slot-sym {
-      width: 80px;
-      height: 80px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-
-    .sym-icon {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.55rem;
-      font-weight: 300;
-      letter-spacing: 0.04em;
-      color: rgba(247,245,241,0.7);
-      line-height: 1;
-      user-select: none;
-    }
-
-    /* ── Symbol colours ── */
-    .slot-sym.sym-jackpot  .sym-icon { color: #5BC4E8; font-size: 2.1rem; font-weight: 400; }
-    .slot-sym.sym-don      .sym-icon { color: #c9a84c; }
-    .slot-sym.sym-can      .sym-icon { color: #7dd6f0; }
-    .slot-sym.sym-mint     .sym-icon { color: #7abf8a; }
-    .slot-sym.sym-seal     .sym-icon { color: rgba(247,245,241,0.95); }
-    .slot-sym.sym-diamond  .sym-icon { color: #b8c8d0; }
-
-    /* ── Spin: payline pulses ── */
-    @keyframes payline-pulse {
-      0%, 100% { opacity: 0.25; background: rgba(91,196,232,0.03); }
-      50%       { opacity: 1;    background: rgba(91,196,232,0.08); }
-    }
-    .slot-cabinet.spinning .slot-payline {
-      animation: payline-pulse 0.45s ease-in-out infinite;
-    }
-
-    /* ── Win: cabinet glow + symbols flash ── */
-    @keyframes cabinet-win {
-      0%, 100% { box-shadow: none; border-color: rgba(247,245,241,0.08); }
-      30%, 70% { box-shadow: 0 0 48px rgba(91,196,232,0.35); border-color: rgba(91,196,232,0.55); }
-      50%      { box-shadow: 0 0 72px rgba(91,196,232,0.55); border-color: rgba(91,196,232,0.9); }
-    }
-    @keyframes sym-flash {
-      0%, 100% { opacity: 1; }
-      50%      { opacity: 0.25; }
-    }
-    .slot-cabinet.win {
-      animation: cabinet-win 1s ease-in-out 2;
-    }
-    .slot-reel.win-reel .reel-strip {
-      animation: sym-flash 0.35s ease-in-out 4;
-    }
-    .slot-result-text.win em { color: #5BC4E8; font-size: 1.8rem; }
-
-    .slot-result-area {
-      min-height: 2.4rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .slot-result-text {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.5rem;
-      font-weight: 300;
-      color: var(--white);
-      letter-spacing: 0.02em;
-      text-align: center;
-    }
-
-    .slot-result-text em {
-      font-style: italic;
-      color: var(--blue);
-    }
-
-    .slot-play-btn {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.68rem;
+      font-size: 0.55rem;
       letter-spacing: 0.22em;
       text-transform: uppercase;
-      background: var(--blue);
-      color: #0d0d0d;
-      border: none;
-      padding: 1rem 3.5rem;
-      cursor: pointer;
-      transition: opacity 0.2s, transform 0.1s;
+      color: var(--blue);
+      margin-bottom: 0.75rem;
     }
-
-    .slot-play-btn:hover:not(:disabled) { opacity: 0.85; }
-    .slot-play-btn:active:not(:disabled) { transform: scale(0.98); }
-    .slot-play-btn:disabled { opacity: 0.38; cursor: not-allowed; }
+    .vault-perk-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      font-weight: 300;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+      line-height: 1.2;
+    }
+    .vault-perk-desc {
+      font-size: 0.72rem;
+      color: rgba(247,245,241,0.42);
+      line-height: 1.65;
+      letter-spacing: 0.02em;
+    }
+    .vault-perk.vault-perk-featured {
+      grid-column: 1 / -1;
+      background: #0a1215;
+      border-color: rgba(91,196,232,0.12);
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+    .vault-perk.vault-perk-featured::before {
+      background: linear-gradient(90deg, transparent, rgba(91,196,232,0.35), transparent);
+    }
+    .vault-featured-badge {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.5rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--blue);
+      background: rgba(91,196,232,0.08);
+      border: 1px solid rgba(91,196,232,0.2);
+      padding: 0.4rem 0.85rem;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    @media (max-width: 560px) {
+      .vault-perk.vault-perk-featured { flex-direction: column; align-items: flex-start; gap: 1rem; }
+    }
 
     /* Tiers section header */
     .tiers-header {
       text-align: center;
       padding: 5rem 2rem 0;
-    }
-
-    @media (max-width: 600px) {
-      .slot-reel { width: 70px; }
-      .slot-sym  { width: 70px; }
-      .slot-cabinet { padding: 1.25rem 1.25rem 1.5rem; }
     }
 
     .membership-hero {
@@ -2931,8 +2788,8 @@
   <!-- ── Gate: logged out ── -->
   <section id="memGate" class="mem-gate-section">
     <div class="mem-gate-inner">
-      <h1 class="mem-gate-headline">Unlock The Don's <em>Machine</em></h1>
-      <p class="mem-gate-sub">Members only. Join or sign in to take your seat.</p>
+      <h1 class="mem-gate-headline">Unlock <em>the Vault</em></h1>
+      <p class="mem-gate-sub">Join or sign in to access member-only perks, hidden rewards, and house exclusives.</p>
       <div class="mem-gate-divider"></div>
       <input type="email" id="memEmailInput" class="spin-gate-input" placeholder="your@email.com" style="max-width:320px;margin:0 auto 0.75rem;display:block">
       <div class="spin-gate-error" id="memGateError"></div>
@@ -2945,25 +2802,41 @@
     </div>
   </section>
 
-  <!-- ── Slot: logged in ── -->
-  <section id="memSlot" class="mem-slot-section" style="display:none">
-    <div class="mem-slot-inner">
-      <h1 class="mem-slot-headline">The Machine <em>is yours</em></h1>
-      <p class="mem-slot-sub">Members only. One pull per session.</p>
-      <div class="slot-machine">
-        <div class="slot-cabinet">
-          <div class="machine-nameplate">The Don's Machine</div>
-          <div class="slot-window">
-            <div class="slot-reel"><div class="reel-strip" id="slotStrip1"></div></div>
-            <div class="slot-reel"><div class="reel-strip" id="slotStrip2"></div></div>
-            <div class="slot-reel"><div class="reel-strip" id="slotStrip3"></div></div>
+  <!-- ── Vault: logged in ── -->
+  <section id="memSlot" class="mem-vault-section" style="display:none">
+    <div class="mem-vault-inner">
+      <div class="mem-vault-header">
+        <h1 class="mem-vault-headline">The Vault <em>is open</em></h1>
+        <p class="mem-vault-sub">Your member perks, hidden rewards, and exclusive access live here.</p>
+      </div>
+      <div class="vault-grid">
+        <div class="vault-perk vault-perk-featured">
+          <div class="vault-featured-badge">This Month</div>
+          <div>
+            <div class="vault-perk-title">House Drop — Early Access</div>
+            <div class="vault-perk-desc">Members get first look at new bundles before they go public. Next drop lands Friday.</div>
           </div>
-          <div class="slot-payline"></div>
         </div>
-        <div class="slot-result-area">
-          <div class="slot-result-text" id="slotResult"></div>
+        <div class="vault-perk">
+          <div class="vault-perk-label">Hidden Perk</div>
+          <div class="vault-perk-title">10% Off Your Next Order</div>
+          <div class="vault-perk-desc">Applied at checkout. No code needed. Members only.</div>
         </div>
-        <button class="slot-play-btn" id="slotPlayBtn" onclick="playSlot()">Pull the Lever</button>
+        <div class="vault-perk">
+          <div class="vault-perk-label">Bonus Points</div>
+          <div class="vault-perk-title">Double Points Weekend</div>
+          <div class="vault-perk-desc">Every order this weekend earns double Goodfella Points. Stacks with your tier rate.</div>
+        </div>
+        <div class="vault-perk">
+          <div class="vault-perk-label">Exclusive Drop</div>
+          <div class="vault-perk-title">Vault-Only Bundle</div>
+          <div class="vault-perk-desc">A curated selection built for members. Not available in the public shop.</div>
+        </div>
+        <div class="vault-perk">
+          <div class="vault-perk-label">Surprise Reward</div>
+          <div class="vault-perk-title">Mystery Perk — Rotating</div>
+          <div class="vault-perk-desc">Changes each week. Could be a free can, a discount, or something else entirely.</div>
+        </div>
       </div>
     </div>
   </section>
@@ -3203,7 +3076,7 @@
         var mGate = document.getElementById('memGate');
         var mSlot = document.getElementById('memSlot');
         if (mGate) mGate.style.display = 'none';
-        if (mSlot) { mSlot.style.display = 'block'; buildSlot(); }
+        if (mSlot) { mSlot.style.display = 'block'; }
       }
     }
   }
@@ -3328,7 +3201,7 @@
     var mGate = document.getElementById('memGate');
     var mSlot = document.getElementById('memSlot');
     if (mGate) mGate.style.display = 'none';
-    if (mSlot) { mSlot.style.display = 'block'; buildSlot(); }
+    if (mSlot) { mSlot.style.display = 'block'; }
   }
 
   function submitMemberEmail() {
@@ -3375,135 +3248,7 @@
     alert('Google Sign-In coming soon. Please enter your email for now.');
   }
 
-  // ─── Snus Fellas Slot Machine ───
-  var SLOT_SYMS = [
-    { id: 'seal',    icon: '◈',  cls: 'sym-seal',    prize: 'Members-Only Unlock'      },
-    { id: 'seven',   icon: '7',   cls: 'sym-jackpot', prize: 'Free Bundle'              },
-    { id: 'don',     icon: '♔',  cls: 'sym-don',     prize: 'Double Points — 24 Hours' },
-    { id: 'can',     icon: '◉',  cls: 'sym-can',     prize: 'Free Can'                 },
-    { id: 'mint',    icon: '✦',  cls: 'sym-mint',    prize: '10% Off Your Next Bundle' },
-    { id: 'diamond', icon: '◆',  cls: 'sym-diamond', prize: '+150 Goodfella Points'    }
-  ];
-  var SLOT_SYM_H   = 80;
-  var SLOT_REPEATS = 10;
-  var slotIsSpinning = false;
-  var slotBuilt      = false;
-
-  function buildSlot() {
-    if (slotBuilt) return;
-    slotBuilt = true;
-    for (var r = 1; r <= 3; r++) {
-      var strip = document.getElementById('slotStrip' + r);
-      if (!strip) return;
-      strip.innerHTML = '';
-      strip.style.transition = 'none';
-      strip.style.transform   = 'translateY(0)';
-      for (var rep = 0; rep < SLOT_REPEATS; rep++) {
-        SLOT_SYMS.forEach(function(sym) {
-          var el = document.createElement('div');
-          el.className = 'slot-sym ' + sym.cls;
-          el.innerHTML = '<span class="sym-icon">' + sym.icon + '</span>';
-          strip.appendChild(el);
-        });
-      }
-    }
-  }
-
-  function playSlot() {
-    if (slotIsSpinning) return;
-    slotIsSpinning = true;
-
-    var btn     = document.getElementById('slotPlayBtn');
-    var result  = document.getElementById('slotResult');
-    var cabinet = document.querySelector('.slot-cabinet');
-    if (btn)    btn.disabled    = true;
-    if (result) result.innerHTML = '';
-    if (cabinet) { cabinet.classList.remove('win'); cabinet.classList.add('spinning'); }
-    // clear any previous win-reel classes
-    for (var c = 1; c <= 3; c++) {
-      var sr = document.getElementById('slotStrip' + c);
-      if (sr && sr.parentElement) sr.parentElement.classList.remove('win-reel');
-    }
-
-    var N          = SLOT_SYMS.length;
-    var stopIdx    = [];
-    var finishCount = 0;
-
-    for (var r = 1; r <= 3; r++) {
-      (function(reelNum) {
-        var strip = document.getElementById('slotStrip' + reelNum);
-        if (!strip) return;
-
-        var s     = Math.floor(Math.random() * N);
-        stopIdx[reelNum - 1] = s;
-
-        // Reel 3 gets most loops so it stops last (stagger effect)
-        var loops   = 4 + reelNum;
-        // We want SLOT_SYMS[s] at the payline (middle row, index 1 of 3 visible).
-        // Window top = translateY. Visible: strip[top], strip[top+1](payline), strip[top+2].
-        // Target: strip[top+1] = SLOT_SYMS[s]  =>  top+1 = loops*N + s  =>  top = loops*N + s - 1
-        var topIdx  = loops * N + s - 1;
-        if (topIdx < 0) topIdx += N;
-        var targetY = topIdx * SLOT_SYM_H;
-        var dur     = 1.3 + reelNum * 0.35; // seconds — reel 1 stops first
-
-        strip.style.transition = 'none';
-        strip.style.transform   = 'translateY(0)';
-        void strip.offsetHeight; // force reflow
-
-        strip.style.transition = 'transform ' + dur + 's cubic-bezier(0.23,1,0.32,1)';
-        strip.style.transform   = 'translateY(-' + targetY + 'px)';
-
-        setTimeout(function() {
-          finishCount++;
-          if (finishCount === 3) {
-            slotIsSpinning = false;
-            if (btn) btn.disabled = false;
-            var cab = document.querySelector('.slot-cabinet');
-            if (cab) cab.classList.remove('spinning');
-            showSlotResult(stopIdx);
-          }
-        }, dur * 1000 + 80);
-      })(r);
-    }
-  }
-
-  function showSlotResult(indices) {
-    var result  = document.getElementById('slotResult');
-    var cabinet = document.querySelector('.slot-cabinet');
-    if (!result) return;
-
-    var i0 = indices[0], i1 = indices[1], i2 = indices[2];
-    var msg = '', isWin = false;
-
-    if (i0 === i1 && i1 === i2) {
-      var prize = SLOT_SYMS[i0].prize;
-      if (prize) { msg = 'You won: <em>' + prize + '</em>'; isWin = true; }
-      else { msg = 'No prize. Pull again.'; }
-    } else if (i0 === i1 || i1 === i2 || i0 === i2) {
-      msg = 'Close. Pull again.';
-    } else {
-      msg = 'No match. Pull again.';
-    }
-
-    result.className = 'slot-result-text' + (isWin ? ' win' : '');
-    result.innerHTML = msg;
-
-    if (isWin && cabinet) {
-      cabinet.classList.add('win');
-      for (var r = 1; r <= 3; r++) {
-        var reel = document.getElementById('slotStrip' + r);
-        if (reel && reel.parentElement) reel.parentElement.classList.add('win-reel');
-      }
-      setTimeout(function() {
-        if (cabinet) cabinet.classList.remove('win');
-        for (var r = 1; r <= 3; r++) {
-          var reel = document.getElementById('slotStrip' + r);
-          if (reel && reel.parentElement) reel.parentElement.classList.remove('win-reel');
-        }
-      }, 2000);
-    }
-  }
+  // ─── Vault ── no JS needed, content-only ───
 
   // Check if already signed in
   function checkExistingEmail() {
