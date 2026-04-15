@@ -1397,29 +1397,73 @@
       margin-bottom: 3rem;
     }
 
-    /* ─── Snus Fellas Slot Machine ─── */
+    /* ─── The Don's Machine ─── */
     .slot-machine {
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 2rem;
+      position: relative;
+    }
+
+    .slot-machine::after {
+      content: '';
+      position: absolute;
+      bottom: 5.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 180px;
+      height: 24px;
+      background: radial-gradient(ellipse, rgba(91,196,232,0.18) 0%, transparent 70%);
+      filter: blur(18px);
+      pointer-events: none;
     }
 
     .slot-cabinet {
-      background: linear-gradient(180deg, #131313 0%, #0d0d0d 100%);
-      border: 1px solid rgba(247,245,241,0.08);
-      padding: 1.5rem 1.5rem 1.75rem;
+      background: linear-gradient(180deg, #121212 0%, #080808 100%);
+      border: 1px solid rgba(200,200,210,0.13);
+      box-shadow:
+        inset 0 0 0 1px rgba(255,255,255,0.03),
+        0 2px 4px rgba(0,0,0,0.9),
+        0 24px 64px rgba(0,0,0,0.55),
+        0 0 80px rgba(91,196,232,0.04);
+      padding: 1.25rem 1.5rem 1.75rem;
       position: relative;
       display: inline-block;
     }
 
-    /* top accent line — premium lit-up feel */
+    /* chrome top gleam */
     .slot-cabinet::before {
       content: '';
       position: absolute;
       top: 0; left: 0; right: 0;
       height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(91,196,232,0.6), transparent);
+      background: linear-gradient(90deg, transparent, rgba(220,230,240,0.35), transparent);
+    }
+
+    /* soft bottom mist */
+    .slot-cabinet::after {
+      content: '';
+      position: absolute;
+      bottom: -12px; left: 50%;
+      transform: translateX(-50%);
+      width: 70%;
+      height: 12px;
+      background: rgba(91,196,232,0.08);
+      filter: blur(10px);
+      pointer-events: none;
+    }
+
+    .machine-nameplate {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.52rem;
+      letter-spacing: 0.38em;
+      text-transform: uppercase;
+      color: rgba(247,245,241,0.28);
+      text-align: center;
+      padding-bottom: 1.1rem;
+      margin-bottom: 1.1rem;
+      border-bottom: 1px solid rgba(247,245,241,0.05);
     }
 
     .slot-window {
@@ -1496,10 +1540,11 @@
 
     /* ── Symbol colours ── */
     .slot-sym.sym-jackpot  .sym-icon { color: #5BC4E8; font-size: 2.1rem; font-weight: 400; }
-    .slot-sym.sym-diamond  .sym-icon { color: #7dd6f0; }
-    .slot-sym.sym-star     .sym-icon { color: #c9a84c; }
-    .slot-sym.sym-fella    .sym-icon { color: rgba(247,245,241,0.95); }
-    .slot-sym.sym-spark    .sym-icon { color: #8ecfd8; }
+    .slot-sym.sym-don      .sym-icon { color: #c9a84c; }
+    .slot-sym.sym-can      .sym-icon { color: #7dd6f0; }
+    .slot-sym.sym-mint     .sym-icon { color: #7abf8a; }
+    .slot-sym.sym-seal     .sym-icon { color: rgba(247,245,241,0.95); }
+    .slot-sym.sym-diamond  .sym-icon { color: #b8c8d0; }
 
     /* ── Spin: payline pulses ── */
     @keyframes payline-pulse {
@@ -2886,8 +2931,8 @@
   <!-- ── Gate: logged out ── -->
   <section id="memGate" class="mem-gate-section">
     <div class="mem-gate-inner">
-      <h1 class="mem-gate-headline">Unlock the Snus Fellas <em>Slot</em></h1>
-      <p class="mem-gate-sub">Join or sign in to access the fruit machine.</p>
+      <h1 class="mem-gate-headline">Unlock The Don's <em>Machine</em></h1>
+      <p class="mem-gate-sub">Members only. Join or sign in to take your seat.</p>
       <div class="mem-gate-divider"></div>
       <input type="email" id="memEmailInput" class="spin-gate-input" placeholder="your@email.com" style="max-width:320px;margin:0 auto 0.75rem;display:block">
       <div class="spin-gate-error" id="memGateError"></div>
@@ -2903,10 +2948,11 @@
   <!-- ── Slot: logged in ── -->
   <section id="memSlot" class="mem-slot-section" style="display:none">
     <div class="mem-slot-inner">
-      <h1 class="mem-slot-headline">You're <em>in</em></h1>
-      <p class="mem-slot-sub">Your slot is unlocked.</p>
+      <h1 class="mem-slot-headline">The Machine <em>is yours</em></h1>
+      <p class="mem-slot-sub">Members only. One pull per session.</p>
       <div class="slot-machine">
         <div class="slot-cabinet">
+          <div class="machine-nameplate">The Don's Machine</div>
           <div class="slot-window">
             <div class="slot-reel"><div class="reel-strip" id="slotStrip1"></div></div>
             <div class="slot-reel"><div class="reel-strip" id="slotStrip2"></div></div>
@@ -2917,7 +2963,7 @@
         <div class="slot-result-area">
           <div class="slot-result-text" id="slotResult"></div>
         </div>
-        <button class="slot-play-btn" id="slotPlayBtn" onclick="playSlot()">Pull</button>
+        <button class="slot-play-btn" id="slotPlayBtn" onclick="playSlot()">Pull the Lever</button>
       </div>
     </div>
   </section>
@@ -3331,12 +3377,12 @@
 
   // ─── Snus Fellas Slot Machine ───
   var SLOT_SYMS = [
-    { id: 'bar',     icon: 'BAR', cls: '',           prize: null           },
-    { id: 'seven',   icon: '7',   cls: 'sym-jackpot', prize: 'Free Bundle' },
-    { id: 'diamond', icon: '◆',  cls: 'sym-diamond', prize: 'Free Can'    },
-    { id: 'star',    icon: '★',  cls: 'sym-star',    prize: '+100 Points' },
-    { id: 'fella',   icon: '◈',  cls: 'sym-fella',   prize: '10% Off'     },
-    { id: 'spark',   icon: '✦',  cls: 'sym-spark',   prize: '5% Off'      }
+    { id: 'seal',    icon: '◈',  cls: 'sym-seal',    prize: 'Members-Only Unlock'      },
+    { id: 'seven',   icon: '7',   cls: 'sym-jackpot', prize: 'Free Bundle'              },
+    { id: 'don',     icon: '♔',  cls: 'sym-don',     prize: 'Double Points — 24 Hours' },
+    { id: 'can',     icon: '◉',  cls: 'sym-can',     prize: 'Free Can'                 },
+    { id: 'mint',    icon: '✦',  cls: 'sym-mint',    prize: '10% Off Your Next Bundle' },
+    { id: 'diamond', icon: '◆',  cls: 'sym-diamond', prize: '+150 Goodfella Points'    }
   ];
   var SLOT_SYM_H   = 80;
   var SLOT_REPEATS = 10;
