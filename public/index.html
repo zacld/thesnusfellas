@@ -1345,8 +1345,8 @@
     .mem-gate-headline {
       font-family: 'Cormorant Garamond', serif;
       font-weight: 300;
-      font-size: clamp(3.2rem, 9vw, 5.5rem);
-      line-height: 1.05;
+      font-size: clamp(2.4rem, 6.5vw, 4rem);
+      line-height: 1.08;
       color: var(--white);
       margin-bottom: 1.25rem;
     }
@@ -1394,7 +1394,160 @@
       letter-spacing: 0.18em;
       text-transform: uppercase;
       color: rgba(247,245,241,0.38);
-      margin-bottom: 3.5rem;
+      margin-bottom: 3rem;
+    }
+
+    /* ─── Snus Fellas Slot Machine ─── */
+    .slot-machine {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .slot-cabinet {
+      background: linear-gradient(180deg, #131313 0%, #0d0d0d 100%);
+      border: 1px solid rgba(247,245,241,0.08);
+      padding: 1.5rem 1.5rem 1.75rem;
+      position: relative;
+      display: inline-block;
+    }
+
+    /* top accent line — premium lit-up feel */
+    .slot-cabinet::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(91,196,232,0.6), transparent);
+    }
+
+    .slot-window {
+      display: flex;
+      gap: 4px;
+      position: relative;
+      height: 240px;
+    }
+
+    /* top/bottom fade — symbols blur off above and below payline */
+    .slot-window::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(13,13,13,0.88) 0%,
+        transparent 30%,
+        transparent 70%,
+        rgba(13,13,13,0.88) 100%
+      );
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    /* payline highlight */
+    .slot-payline {
+      position: absolute;
+      top: 80px;
+      left: -1.5rem;
+      right: -1.5rem;
+      height: 80px;
+      border-top: 1px solid rgba(91,196,232,0.25);
+      border-bottom: 1px solid rgba(91,196,232,0.25);
+      background: rgba(91,196,232,0.03);
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .slot-reel {
+      width: 80px;
+      height: 240px;
+      overflow: hidden;
+      background: #080808;
+      border: 1px solid rgba(247,245,241,0.05);
+      position: relative;
+      z-index: 1;
+    }
+
+    .reel-strip {
+      display: flex;
+      flex-direction: column;
+      will-change: transform;
+    }
+
+    .slot-sym {
+      width: 80px;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .sym-icon {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.55rem;
+      font-weight: 300;
+      letter-spacing: 0.04em;
+      color: rgba(247,245,241,0.7);
+      line-height: 1;
+      user-select: none;
+    }
+
+    .slot-sym.sym-jackpot .sym-icon {
+      color: #5BC4E8;
+      font-size: 2.1rem;
+      font-weight: 400;
+    }
+
+    .slot-result-area {
+      min-height: 2.4rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .slot-result-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 300;
+      color: var(--white);
+      letter-spacing: 0.02em;
+      text-align: center;
+    }
+
+    .slot-result-text em {
+      font-style: italic;
+      color: var(--blue);
+    }
+
+    .slot-play-btn {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      background: var(--blue);
+      color: #0d0d0d;
+      border: none;
+      padding: 1rem 3.5rem;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.1s;
+    }
+
+    .slot-play-btn:hover:not(:disabled) { opacity: 0.85; }
+    .slot-play-btn:active:not(:disabled) { transform: scale(0.98); }
+    .slot-play-btn:disabled { opacity: 0.38; cursor: not-allowed; }
+
+    /* Tiers section header */
+    .tiers-header {
+      text-align: center;
+      padding: 5rem 2rem 0;
+    }
+
+    @media (max-width: 600px) {
+      .slot-reel { width: 70px; }
+      .slot-sym  { width: 70px; }
+      .slot-cabinet { padding: 1.25rem 1.25rem 1.5rem; }
     }
 
     .membership-hero {
@@ -2705,8 +2858,8 @@
   <!-- ── Gate: logged out ── -->
   <section id="memGate" class="mem-gate-section">
     <div class="mem-gate-inner">
-      <h1 class="mem-gate-headline">Join <em>the Fellas</em></h1>
-      <p class="mem-gate-sub">Sign up or sign in to unlock the Snus Fellas slot.</p>
+      <h1 class="mem-gate-headline">Unlock the Snus Fellas <em>Slot</em></h1>
+      <p class="mem-gate-sub">Join or sign in to access the fruit machine.</p>
       <div class="mem-gate-divider"></div>
       <input type="email" id="memEmailInput" class="spin-gate-input" placeholder="your@email.com" style="max-width:320px;margin:0 auto 0.75rem;display:block">
       <div class="spin-gate-error" id="memGateError"></div>
@@ -2724,21 +2877,28 @@
     <div class="mem-slot-inner">
       <h1 class="mem-slot-headline">You're <em>in</em></h1>
       <p class="mem-slot-sub">Your slot is unlocked.</p>
-      <div class="wheel-section">
-        <div class="wheel-wrap">
-          <div class="wheel-pointer"></div>
-          <canvas id="memberWheel" width="320" height="320"></canvas>
-          <div class="wheel-center"></div>
+      <div class="slot-machine">
+        <div class="slot-cabinet">
+          <div class="slot-window">
+            <div class="slot-reel"><div class="reel-strip" id="slotStrip1"></div></div>
+            <div class="slot-reel"><div class="reel-strip" id="slotStrip2"></div></div>
+            <div class="slot-reel"><div class="reel-strip" id="slotStrip3"></div></div>
+          </div>
+          <div class="slot-payline"></div>
         </div>
-        <div class="spin-result" id="memberResult"></div>
-        <div style="margin-top:1.5rem">
-          <button class="btn-primary" id="memberSpinBtn" onclick="spinWheel('memberWheel','memberResult','memberSpinBtn')">Spin Now</button>
+        <div class="slot-result-area">
+          <div class="slot-result-text" id="slotResult"></div>
         </div>
+        <button class="slot-play-btn" id="slotPlayBtn" onclick="playSlot()">Pull</button>
       </div>
     </div>
   </section>
 
   <!-- ── Tiers ── -->
+  <div class="tiers-header">
+    <p class="section-label">Membership</p>
+    <h2 class="section-title">Pick your <em>tier</em></h2>
+  </div>
   <section class="tiers-section">
     <div class="tiers-grid">
 
@@ -3063,7 +3223,7 @@
         var mGate = document.getElementById('memGate');
         var mSlot = document.getElementById('memSlot');
         if (mGate) mGate.style.display = 'none';
-        if (mSlot) { mSlot.style.display = 'block'; setTimeout(function(){ drawWheel('memberWheel'); }, 100); }
+        if (mSlot) { mSlot.style.display = 'block'; buildSlot(); }
       }
     }
   }
@@ -3188,7 +3348,7 @@
     var mGate = document.getElementById('memGate');
     var mSlot = document.getElementById('memSlot');
     if (mGate) mGate.style.display = 'none';
-    if (mSlot) { mSlot.style.display = 'block'; setTimeout(function(){ drawWheel('memberWheel'); }, 100); }
+    if (mSlot) { mSlot.style.display = 'block'; buildSlot(); }
   }
 
   function submitMemberEmail() {
@@ -3233,6 +3393,108 @@
   function signInWithGoogle() {
     // Requires Google OAuth client ID — placeholder redirect
     alert('Google Sign-In coming soon. Please enter your email for now.');
+  }
+
+  // ─── Snus Fellas Slot Machine ───
+  var SLOT_SYMS = [
+    { id: 'bar',     icon: 'BAR', cls: '',          prize: null             },
+    { id: 'seven',   icon: '7',   cls: 'sym-jackpot',prize: 'Free Bundle'   },
+    { id: 'diamond', icon: '◆',  cls: '',          prize: 'Free Can'       },
+    { id: 'star',    icon: '★',  cls: '',          prize: '+100 Points'    },
+    { id: 'fella',   icon: '◈',  cls: '',          prize: '10% Off'        },
+    { id: 'spark',   icon: '✦',  cls: '',          prize: '5% Off'         }
+  ];
+  var SLOT_SYM_H   = 80;
+  var SLOT_REPEATS = 10;
+  var slotIsSpinning = false;
+  var slotBuilt      = false;
+
+  function buildSlot() {
+    if (slotBuilt) return;
+    slotBuilt = true;
+    for (var r = 1; r <= 3; r++) {
+      var strip = document.getElementById('slotStrip' + r);
+      if (!strip) return;
+      strip.innerHTML = '';
+      strip.style.transition = 'none';
+      strip.style.transform   = 'translateY(0)';
+      for (var rep = 0; rep < SLOT_REPEATS; rep++) {
+        SLOT_SYMS.forEach(function(sym) {
+          var el = document.createElement('div');
+          el.className = 'slot-sym ' + sym.cls;
+          el.innerHTML = '<span class="sym-icon">' + sym.icon + '</span>';
+          strip.appendChild(el);
+        });
+      }
+    }
+  }
+
+  function playSlot() {
+    if (slotIsSpinning) return;
+    slotIsSpinning = true;
+
+    var btn    = document.getElementById('slotPlayBtn');
+    var result = document.getElementById('slotResult');
+    if (btn)    btn.disabled   = true;
+    if (result) result.innerHTML = '';
+
+    var N          = SLOT_SYMS.length;
+    var stopIdx    = [];
+    var finishCount = 0;
+
+    for (var r = 1; r <= 3; r++) {
+      (function(reelNum) {
+        var strip = document.getElementById('slotStrip' + reelNum);
+        if (!strip) return;
+
+        var s     = Math.floor(Math.random() * N);
+        stopIdx[reelNum - 1] = s;
+
+        // Reel 3 gets most loops so it stops last (stagger effect)
+        var loops   = 4 + reelNum;
+        // We want SLOT_SYMS[s] at the payline (middle row, index 1 of 3 visible).
+        // Window top = translateY. Visible: strip[top], strip[top+1](payline), strip[top+2].
+        // Target: strip[top+1] = SLOT_SYMS[s]  =>  top+1 = loops*N + s  =>  top = loops*N + s - 1
+        var topIdx  = loops * N + s - 1;
+        if (topIdx < 0) topIdx += N;
+        var targetY = topIdx * SLOT_SYM_H;
+        var dur     = 1.3 + reelNum * 0.35; // seconds — reel 1 stops first
+
+        strip.style.transition = 'none';
+        strip.style.transform   = 'translateY(0)';
+        void strip.offsetHeight; // force reflow
+
+        strip.style.transition = 'transform ' + dur + 's cubic-bezier(0.23,1,0.32,1)';
+        strip.style.transform   = 'translateY(-' + targetY + 'px)';
+
+        setTimeout(function() {
+          finishCount++;
+          if (finishCount === 3) {
+            slotIsSpinning = false;
+            if (btn) btn.disabled = false;
+            showSlotResult(stopIdx);
+          }
+        }, dur * 1000 + 80);
+      })(r);
+    }
+  }
+
+  function showSlotResult(indices) {
+    var result = document.getElementById('slotResult');
+    if (!result) return;
+
+    var i0 = indices[0], i1 = indices[1], i2 = indices[2];
+
+    if (i0 === i1 && i1 === i2) {
+      var prize = SLOT_SYMS[i0].prize;
+      result.innerHTML = prize
+        ? 'You won: <em>' + prize + '</em>'
+        : 'No prize. Pull again.';
+    } else if (i0 === i1 || i1 === i2 || i0 === i2) {
+      result.innerHTML = 'Close. Pull again.';
+    } else {
+      result.innerHTML = 'No match. Pull again.';
+    }
   }
 
   // Check if already signed in
